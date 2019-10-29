@@ -32,10 +32,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\timjl\source\repos\SteamworksSKDTestProject\SteamworksSKDTestProject\PlatformInterface.h">
+    <ClInclude Include="src\platform\PlatformFriendInterface.h">
       <Filter>Header Files\platform</Filter>
     </ClInclude>
-    <ClInclude Include="src\platform\PlatformFriendInterface.h">
+    <ClInclude Include="src\platform\PlatformInterface.h">
       <Filter>Header Files\platform</Filter>
     </ClInclude>
   </ItemGroup>
