@@ -1,11 +1,7 @@
 
-#include "platform/PlatformInterface.h"
+#include "Engine.h"
 
-int main()
+int main(int, char**)
 {
-    printf("HelloWorld");
-
-    PlatformInterface::Init();
-     
-    PlatformInterface::Deinit();
+    Engine::Instance()->Main();
 }

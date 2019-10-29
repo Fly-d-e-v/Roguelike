@@ -174,11 +174,13 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp" />
     <ClCompile Include="src\platform\PlatformInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\platform\PlatformInterface.h" />
     <ClInclude Include="src\platform\PlatformFriendInterface.h" />
   </ItemGroup>
