@@ -22,7 +22,7 @@ void Engine::Main()
 Engine* Engine::Instance()
 {
 
-    if (s_Instance != nullptr)
+    if (s_Instance == nullptr)
     {
         s_Instance = new Engine();
     }
@@ -30,7 +30,7 @@ Engine* Engine::Instance()
     return s_Instance;
 }
 
-Engine::Engine()
+Engine::Engine() : m_PastFrame()
 {
 
 }
@@ -38,6 +38,10 @@ Engine::Engine()
 void Engine::Init()
 {
     PlatformInterface::Init();
+
+    m_PastFrame = std::chrono::system_clock::now();
+
+
 }
 
 void Engine::Tick(float)
