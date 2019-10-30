@@ -56,13 +56,14 @@ void Engine::Init()
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 }
 
-void Engine::Tick(float)
+void Engine::Tick(float deltaTime)
 {
 
     glClear(GL_COLOR_BUFFER_BIT);
     glfwPollEvents();
 
-
+    std::string title = "RogueLike - " + std::to_string(static_cast<int>(1 / deltaTime)) + "fps";
+    glfwSetWindowTitle(glfwGetCurrentContext(), title.c_str());
     //@TODO design tick order for engine
 
 
