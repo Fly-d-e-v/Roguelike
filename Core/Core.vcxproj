@@ -97,8 +97,8 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\Steam\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>steam_api.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>steam_api.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);glfw3.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d $(SolutionDir)lib\thirdparty\Steam\$(Platform)\steam_api.dll $(OutDir)
@@ -117,8 +117,8 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\Steam\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>steam_api64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>steam_api64.lib;%(AdditionalDependencies);glfw3.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d $(SolutionDir)lib\thirdparty\Steam\$(Platform)\steam_api64.dll $(OutDir)
@@ -141,8 +141,8 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\Steam\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>steam_api.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>steam_api.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);glfw3.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d $(SolutionDir)lib\thirdparty\Steam\$(Platform)\steam_api.dll $(OutDir)
@@ -165,8 +165,8 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\Steam\$(Platform)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>steam_api64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>steam_api64.lib;%(AdditionalDependencies);glfw3.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d $(SolutionDir)lib\thirdparty\Steam\$(Platform)\steam_api64.dll $(OutDir)
