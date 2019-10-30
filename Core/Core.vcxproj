@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src\;$(ProjectDir)\src\thirdparty\</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -112,7 +112,7 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src\;$(ProjectDir)\src\thirdparty\</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -133,7 +133,7 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src\;$(ProjectDir)\src\thirdparty\</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -158,7 +158,7 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src\;$(ProjectDir)\src\thirdparty\</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -178,6 +178,7 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp" />
     <ClCompile Include="src\platform\PlatformInterface.cpp" />
+    <ClCompile Include="src\thirdparty\glad\glad.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h" />

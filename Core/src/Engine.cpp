@@ -2,6 +2,9 @@
 
 #include "platform/PlatformInterface.h"
 
+#include "thirdparty/glad/glad.h"
+#include "thirdparty/GLFW/glfw3.h"
+
 Engine* Engine::s_Instance = nullptr;
 
 void Engine::Main()
@@ -42,10 +45,28 @@ void Engine::Init()
     m_PastFrame = std::chrono::system_clock::now();
 
 
+    glfwInit();
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    GLFWwindow* window = glfwCreateWindow(500, 500, "RogueLike", NULL, NULL);
+    glfwMakeContextCurrent(window);
+    gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    glfwSwapInterval(1);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 }
 
 void Engine::Tick(float)
 {
+
+    glClear(GL_COLOR_BUFFER_BIT);
+    glfwPollEvents();
+
+
+    //@TODO design tick order for engine
+
+
+    glfwSwapBuffers(glfwGetCurrentContext());
 }
 
 void Engine::Deinit()
@@ -55,5 +76,5 @@ void Engine::Deinit()
 
 bool Engine::ShouldShutdown()
 {
-    return false;
+    return glfwWindowShouldClose(glfwGetCurrentContext());
 }

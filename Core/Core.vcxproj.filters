@@ -19,6 +19,12 @@
     <Filter Include="Source Files\platform">
       <UniqueIdentifier>{9b228390-0074-49c8-badb-48fc7567d70a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\thirdparty">
+      <UniqueIdentifier>{f2dc4115-4d60-42ff-b153-f1485107eff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\thirdparty\glad">
+      <UniqueIdentifier>{056b2fb4-7371-4e37-95c1-77306290fc8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp">
@@ -32,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="src\Engine.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\thirdparty\glad\glad.c">
+      <Filter>Source Files\thirdparty\glad</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
