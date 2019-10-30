@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include <memory>
 #include <chrono>
 
 class Engine
@@ -27,5 +27,7 @@ private:
     static Engine* s_Instance;
 
     std::chrono::system_clock::time_point m_PastFrame;
+
+    std::shared_ptr<class Renderer> m_Renderer;
 
 };

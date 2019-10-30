@@ -25,6 +25,12 @@
     <Filter Include="Source Files\thirdparty\glad">
       <UniqueIdentifier>{056b2fb4-7371-4e37-95c1-77306290fc8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\graphics">
+      <UniqueIdentifier>{d15fda8c-76d4-4799-afe8-dac312b4d447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\graphics">
+      <UniqueIdentifier>{81b3d682-115c-4fa1-9fde-5c0744c16e42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp">
@@ -42,6 +48,9 @@
     <ClCompile Include="src\thirdparty\glad\glad.c">
       <Filter>Source Files\thirdparty\glad</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Renderer.cpp">
+      <Filter>Source Files\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\platform\PlatformFriendInterface.h">
@@ -52,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="src\Engine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\Renderer.h">
+      <Filter>Header Files\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

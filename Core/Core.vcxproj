@@ -175,6 +175,7 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\graphics\Renderer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp" />
     <ClCompile Include="src\platform\PlatformInterface.cpp" />
@@ -182,6 +183,7 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h" />
+    <ClInclude Include="src\graphics\Renderer.h" />
     <ClInclude Include="src\platform\PlatformInterface.h" />
     <ClInclude Include="src\platform\PlatformFriendInterface.h" />
   </ItemGroup>
