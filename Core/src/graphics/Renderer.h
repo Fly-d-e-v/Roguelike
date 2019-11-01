@@ -1,5 +1,10 @@
 #pragma once
 
+#include "thirdparty/glad/glad.h"
+#include "thirdparty/GLFW/glfw3.h"
+#include "thirdparty/glm/glm/glm.hpp"
+#include "Shader.h"
+
 class Renderer
 {
 
@@ -15,7 +20,17 @@ public:
     bool ShutdownRequested();
 
 private:
+	static void GLFWErrorCallback(int error, const char* description);
 
-    struct GLFWwindow* m_Window;
+	static void GLFWFramebufferSizeCallback(GLFWwindow* window, int width, int height);
+
+	bool LoadResources();
+
+	Shader _shaderProgram;
+	unsigned int _vao;
+	unsigned int _vbo;
+	unsigned int _ebo;
+
+	unsigned int _textureNiels;
 
 };

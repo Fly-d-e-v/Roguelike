@@ -31,6 +31,9 @@
     <Filter Include="Header Files\graphics">
       <UniqueIdentifier>{81b3d682-115c-4fa1-9fde-5c0744c16e42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{b81ee635-f161-4bea-8b04-c3f5dda1960f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp">
@@ -51,6 +54,9 @@
     <ClCompile Include="src\graphics\Renderer.cpp">
       <Filter>Source Files\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Shader.cpp">
+      <Filter>Source Files\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\platform\PlatformFriendInterface.h">
@@ -65,5 +71,21 @@
     <ClInclude Include="src\graphics\Renderer.h">
       <Filter>Header Files\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\Shader.h">
+      <Filter>Header Files\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\thirdparty\stb_image.h">
+      <Filter>Source Files\thirdparty</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\BasicVertex.glsl">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\Shaders\BasicFragment.glsl">
+      <Filter>Resource Files\Shaders</Filter>
+    </Text>
   </ItemGroup>
 </Project>
