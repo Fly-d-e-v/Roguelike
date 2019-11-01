@@ -2,6 +2,7 @@
 
 #include "platform/PlatformInterface.h"
 #include "graphics/Renderer.h"
+#include "input/InputManager.h"
 
 Engine* Engine::s_Instance = nullptr;
 
@@ -43,15 +44,19 @@ void Engine::Init()
     m_PastFrame = std::chrono::system_clock::now();
 
     m_Renderer->Init();
+    InputManager::Instance()->Init();
+
 }
 
 void Engine::Tick(float deltaTime)
 {
+    InputManager::Instance()->Tick(deltaTime);
     m_Renderer->Tick(deltaTime);
 }
 
 void Engine::Deinit()
 {
+    InputManager::Instance()->Deinit();
     m_Renderer->Deinit();
     PlatformInterface::Deinit();
 }
