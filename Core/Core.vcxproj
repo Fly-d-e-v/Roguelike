@@ -191,6 +191,7 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
     <ClInclude Include="src\graphics\Shader.h" />
     <ClInclude Include="src\platform\PlatformInterface.h" />
     <ClInclude Include="src\platform\PlatformFriendInterface.h" />
+    <ClInclude Include="src\thirdparty\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\BasicVertex.glsl" />

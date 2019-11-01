@@ -23,9 +23,13 @@ private:
 
 	static void GLFWFramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
+	bool LoadResources();
+
 	Shader _shaderProgram;
 	unsigned int _vao;
 	unsigned int _vbo;
 	unsigned int _ebo;
+
+	unsigned int _textureNiels;
 
 };
