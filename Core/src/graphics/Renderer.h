@@ -2,6 +2,7 @@
 
 #include "thirdparty/glad/glad.h"
 #include "thirdparty/GLFW/glfw3.h"
+#include "Shader.h"
 
 class Renderer
 {
@@ -22,6 +23,9 @@ private:
 
 	static void GLFWFramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
-
+	Shader _shaderProgram;
+	unsigned int _vao;
+	unsigned int _vbo;
+	unsigned int _ebo;
 
 };

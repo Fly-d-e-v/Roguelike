@@ -174,8 +174,12 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="Resources\Shaders\BasicFragment.glsl">
+      <FileType>Document</FileType>
+    </Text>
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\graphics\Renderer.cpp" />
+    <ClCompile Include="src\graphics\Shader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp" />
     <ClCompile Include="src\platform\PlatformInterface.cpp" />
@@ -184,6 +188,7 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
   <ItemGroup>
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
+    <ClInclude Include="src\graphics\Shader.h" />
     <ClInclude Include="src\platform\PlatformInterface.h" />
     <ClInclude Include="src\platform\PlatformFriendInterface.h" />
   </ItemGroup>
