@@ -1,5 +1,8 @@
 #pragma once
 
+#include "thirdparty/glad/glad.h"
+#include "thirdparty/GLFW/glfw3.h"
+
 class Renderer
 {
 
@@ -15,7 +18,10 @@ public:
     bool ShutdownRequested();
 
 private:
+	static void GLFWErrorCallback(int error, const char* description);
 
-    struct GLFWwindow* m_Window;
+	static void GLFWFramebufferSizeCallback(GLFWwindow* window, int width, int height);
+
+
 
 };
