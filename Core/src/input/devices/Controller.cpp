@@ -28,7 +28,7 @@ void Controller::ProcessStates() {
     if (_Connected) {
         int count;
         const unsigned char* buttons = glfwGetJoystickButtons(_ControllerID, &count);
-        for (int i = 0; i < _Buttons.size(); i++) {
+        for (size_t i = 0; i < _Buttons.size(); i++) {
             EPressedState previousState = _Buttons[i]->_State;
             switch (buttons[i]) {
             case GLFW_PRESS:
@@ -47,7 +47,7 @@ void Controller::ProcessStates() {
         }
 
         const float* axisStates = glfwGetJoystickAxes(_ControllerID, &count);
-        for (int i = 0; i < _Axis.size(); i++) {
+        for (size_t i = 0; i < _Axis.size(); i++) {
             _Axis[i]->_Value = axisStates[i];
             if (_Axis[i]->_Value == 1.0f) {
             }

@@ -54,9 +54,9 @@ bool Renderer::Init() {
 		return false;
 	}
 
-	glViewport(0, 0, 500, 500);
+	glViewport(0, 0, 640, 360);
 
-    glfwSwapInterval(1);
+    glfwSwapInterval(0); //Turns off V-Sync
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	_shaderProgram = std::make_shared<Shader>();
@@ -97,7 +97,7 @@ void Renderer::Tick(float deltaTime)
 	GLFWwindow* window = glfwGetCurrentContext();
     glClear(GL_COLOR_BUFFER_BIT);
 
-    std::string title = "RogueLike - " + std::to_string(static_cast<int>(1.f / deltaTime)) + "fps";
+    std::string title = "RogueLike - " + std::to_string(deltaTime * 1000.f) + "ms";
     glfwSetWindowTitle(window, title.c_str());
 
 	//Rendering
