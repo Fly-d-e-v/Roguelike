@@ -61,6 +61,15 @@
     <Filter Include="Source Files\audio">
       <UniqueIdentifier>{a2300c75-731e-4a59-8886-a6c60925805f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\thirdparty\ImGui">
+      <UniqueIdentifier>{8917f186-74e1-4211-a2b1-7493d28f8289}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\thirdparty">
+      <UniqueIdentifier>{884d86b4-342b-4c72-b6b8-9c0507300069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\thirdparty\ImGui">
+      <UniqueIdentifier>{e98e7790-8da8-4da4-9d92-d2dad5f03929}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp">
@@ -101,6 +110,24 @@
     </ClCompile>
     <ClCompile Include="src\audio\AudioEngine.cpp">
       <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\thirdparty\imgui-1.73\imgui_demo.cpp">
+      <Filter>Source Files\thirdparty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\thirdparty\imgui-1.73\imgui_draw.cpp">
+      <Filter>Source Files\thirdparty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\thirdparty\imgui-1.73\imgui_impl_glfw.cpp">
+      <Filter>Source Files\thirdparty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\thirdparty\imgui-1.73\imgui_impl_opengl3.cpp">
+      <Filter>Source Files\thirdparty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\thirdparty\imgui-1.73\imgui_widgets.cpp">
+      <Filter>Source Files\thirdparty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\thirdparty\imgui-1.73\imgui.cpp">
+      <Filter>Source Files\thirdparty\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +175,30 @@
     </ClInclude>
     <ClInclude Include="src\audio\AudioEngine.h">
       <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\thirdparty\imgui-1.73\imstb_rectpack.h">
+      <Filter>Header Files\thirdparty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\thirdparty\imgui-1.73\imstb_textedit.h">
+      <Filter>Header Files\thirdparty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\thirdparty\imgui-1.73\imstb_truetype.h">
+      <Filter>Header Files\thirdparty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\thirdparty\imgui-1.73\imconfig.h">
+      <Filter>Header Files\thirdparty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\thirdparty\imgui-1.73\imgui.h">
+      <Filter>Header Files\thirdparty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\thirdparty\imgui-1.73\imgui_impl_glfw.h">
+      <Filter>Header Files\thirdparty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\thirdparty\imgui-1.73\imgui_impl_opengl3.h">
+      <Filter>Header Files\thirdparty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\thirdparty\imgui-1.73\imgui_internal.h">
+      <Filter>Header Files\thirdparty\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
