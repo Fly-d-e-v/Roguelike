@@ -27,13 +27,18 @@ private:
 	static void GLFWErrorCallback(int error, const char* description);
 
 	static void GLFWFramebufferSizeCallback(struct GLFWwindow* window, int width, int height);
-	unsigned int _vao;
-	unsigned int _vbo;
-	unsigned int _ebo;
+	unsigned int _vao = 0u;
+	unsigned int _vbo = 0u;
+	unsigned int _ebo = 0u;
+
+	unsigned int _model_mat_uniform = 0u;
+	unsigned int _proj_mat_uniform = 0u;
+	unsigned int _view_mat_uniform = 0u;
 
 #endif // OPENGL
 
+	static bool _didResize;
 
-	unsigned int _textureNiels;
+	unsigned int _textureNiels = 0u;
 
 };

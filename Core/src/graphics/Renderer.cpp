@@ -9,18 +9,31 @@
 #include "thirdparty/glad/glad.h"
 #include "thirdparty/GLFW/glfw3.h"
 #include "thirdparty/glm/glm.hpp"
+#pragma warning(push, 0)        
+//Some includes with unfixable warnings
+#include "thirdparty/glm/gtc/type_ptr.hpp"
+#pragma warning(pop)
 
-float vertices[] = {
+bool Renderer::_didResize = true;
+
+float _vertices[] = {
 	//Positions				//Colors			//UVs
 	 0.5f,  0.5f, 0.0f,		1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   // top right
 	 0.5f, -0.5f, 0.0f,		1.0f, 1.0f, 1.0f,   1.0f, 0.0f,   // bottom right
 	-0.5f, -0.5f, 0.0f,		1.0f, 1.0f, 1.0f,   0.0f, 0.0f,   // bottom left
 	-0.5f,  0.5f, 0.0f,		1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
 };
-unsigned int indices[] = {
+unsigned int _indices[] = {
 	0, 1, 3,   // first triangle
 	1, 2, 3    // second triangle
 };
+
+//TODO: Hack fest, should be contain in the camera
+unsigned int _width = 640, _height = 360;
+glm::mat4 _projection_matrix = glm::mat4(1.0f);
+glm::mat4 _view_matrix = glm::mat4(1.0f);
+glm::mat4 _model_matrix = glm::mat4(1.0f);
+
 
 Renderer::Renderer()
 {
@@ -39,30 +52,30 @@ bool Renderer::Init() {
 	glfwSetErrorCallback(GLFWErrorCallback);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    GLFWwindow* window = glfwCreateWindow(640, 360, "RogueLike", NULL, NULL);
-	glfwSetFramebufferSizeCallback(window, GLFWFramebufferSizeCallback);
-	
+    GLFWwindow* window = glfwCreateWindow(_width, _height, "RogueLike", NULL, NULL);
 	if (!window) {
 		glfwTerminate();
 		return false;
 	}
-    
 	glfwMakeContextCurrent(window);
-	
+	glfwSetFramebufferSizeCallback(window, GLFWFramebufferSizeCallback);
+    glfwSwapInterval(0); //Turns off V-Sync
+
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		printf("Failed to initialize GLAD \n");
 		return false;
 	}
-
-	glViewport(0, 0, 640, 360);
-
-    glfwSwapInterval(0); //Turns off V-Sync
+	
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
+	//TODO: Assume we'll be using several shader programs, loading shaders and uniforms should probably be handled better... This solution is fine if we stick with a single shader.
 	_shaderProgram = std::make_shared<Shader>();
 	_shaderProgram->Load("Resources/Shaders/BasicVertex.glsl", "Resources/Shaders/BasicFragment.glsl");
 
-	
+	_model_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "model");
+	_view_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "view");
+	_proj_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "projection");
+
 	glGenVertexArrays(1, &_vao);
 	glGenBuffers(1, &_vbo);
 	glGenBuffers(1, &_ebo);
@@ -70,10 +83,10 @@ bool Renderer::Init() {
 	glBindVertexArray(_vao);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(_vertices), &_vertices, GL_STATIC_DRAW);
 	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), &indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices), &_indices, GL_STATIC_DRAW);
 
 	//Setup vertex attributes
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), reinterpret_cast<void*>(0));
@@ -105,6 +118,18 @@ void Renderer::Tick(float deltaTime)
 	glBindTexture(GL_TEXTURE_2D, _textureNiels);
 	glBindVertexArray(_vao);
 
+	//TODO: Should be handled by Entity, wake me up when we have an ECS
+	_model_matrix = glm::rotate(_model_matrix, glm::radians(45.f * deltaTime), glm::vec3(0, 0, 1));
+	glUniformMatrix4fv(_model_mat_uniform, 1, GL_FALSE, glm::value_ptr(_model_matrix));
+	glUniformMatrix4fv(_view_mat_uniform, 1, GL_FALSE, glm::value_ptr(_view_matrix));
+	
+	if (_didResize) {
+		glViewport(0, 0, _width, _height);
+		_projection_matrix = glm::ortho(0.f, static_cast<float>(_width), 0.f, static_cast<float>(_height));
+		glUniformMatrix4fv(_proj_mat_uniform, 1, GL_FALSE, glm::value_ptr(_projection_matrix));
+		_didResize = false;
+	}
+
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     glfwSwapBuffers(window);
@@ -129,7 +154,9 @@ void Renderer::GLFWErrorCallback(int error, const char* description)
 void Renderer::GLFWFramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
 	window;
-	glViewport(0, 0, width, height);
+	_width = width;
+	_height = height;
+	_didResize = true;
 }
 
 bool Renderer::LoadResources()
@@ -153,6 +180,8 @@ bool Renderer::LoadResources()
 		}
 		stbi_image_free(textureData);
 	}
+	_model_matrix = glm::translate(_model_matrix, glm::vec3(static_cast<float>(_width) * 0.5f, static_cast<float>(_height) * 0.5f, 0.f));
+	_model_matrix = glm::scale(_model_matrix, glm::vec3(150.f, 150.f, 1.f));
 
 	return true;
 }
