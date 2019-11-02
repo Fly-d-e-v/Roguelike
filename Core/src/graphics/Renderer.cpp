@@ -1,6 +1,9 @@
 #include "Renderer.h"
 #include "Shader.h"
 
+#include "Engine.h"
+#include "core/config/Config.h"
+
 #include <string>
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -49,10 +52,12 @@ bool Renderer::Init() {
         return false;
     }
 
+   Config& config = Engine::Instance()->GetConfig();
+
 	glfwSetErrorCallback(GLFWErrorCallback);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    GLFWwindow* window = glfwCreateWindow(_width, _height, "RogueLike", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(config._ScreenWidth, config._ScreenHeight, "RogueLike", NULL, NULL);
 	if (!window) {
 		glfwTerminate();
 		return false;

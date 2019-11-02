@@ -6,6 +6,9 @@
 #include "audio/AudioEngine.h"
 #include "core/utils/Utilities.h"
 
+#include "core/config/ConfigLoader.h"
+#include "core/config/Config.h"
+
 Engine* Engine::s_Instance = nullptr;
 
 void Engine::Main()
@@ -45,6 +48,10 @@ void Engine::Init()
 
     m_PastFrame = std::chrono::system_clock::now();
 
+    _Config = Config();
+    ConfigLoader::LoadConfig(_Config);
+    ConfigLoader::SaveConfig(_Config);
+
     m_Renderer->Init();
     InputManager::Instance()->Init();
     AudioEngine::Instance()->Init();
@@ -66,4 +73,8 @@ void Engine::Deinit()
 bool Engine::ShouldShutdown()
 {
     return m_Renderer->ShutdownRequested();
+}
+
+Config& Engine::GetConfig() {
+    return _Config;
 }

@@ -70,6 +70,12 @@
     <Filter Include="Source Files\core\utils">
       <UniqueIdentifier>{ace0ea1e-a74a-4063-8751-27030ce7e4e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\core\config">
+      <UniqueIdentifier>{a8d9eedb-9a48-4c20-9118-cb61b53cf487}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\config">
+      <UniqueIdentifier>{5c4dface-c69e-4d4a-8893-0ff68dbcf05d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp">
@@ -113,6 +119,12 @@
     </ClCompile>
     <ClCompile Include="src\core\utils\Utilities.cpp">
       <Filter>Source Files\core\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\config\ConfigLoader.cpp">
+      <Filter>Source Files\core\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\config\Config.cpp">
+      <Filter>Source Files\core\config</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="src\core\utils\Utilities.h">
       <Filter>Header Files\core\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\config\Config.h">
+      <Filter>Header Files\core\config</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\config\ConfigLoader.h">
+      <Filter>Header Files\core\config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
