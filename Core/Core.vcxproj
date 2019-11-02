@@ -191,6 +191,7 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
     <ClCompile Include="src\thirdparty\glad\glad.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\event\Event.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
     <ClInclude Include="src\graphics\Shader.h" />
@@ -199,6 +200,8 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
     <ClInclude Include="src\input\devices\Mouse.h" />
     <ClInclude Include="src\input\InputEvent.h" />
     <ClInclude Include="src\input\InputManager.h" />
+    <ClInclude Include="src\input\utils\InputEnums.h" />
+    <ClInclude Include="src\input\utils\InputTypes.h" />
     <ClInclude Include="src\platform\PlatformInterface.h" />
     <ClInclude Include="src\platform\PlatformFriendInterface.h" />
     <ClInclude Include="src\thirdparty\stb_image.h" />

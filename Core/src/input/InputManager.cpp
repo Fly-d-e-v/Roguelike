@@ -1,5 +1,6 @@
 #include "InputManager.h"
 
+#include "input/devices/Controller.h"
 #include "input/devices/Keyboard.h"
 
 #include "GLFW/glfw3.h"
@@ -24,10 +25,25 @@ bool InputManager::Init() {
     m_Keyboard = std::make_shared<Keyboard>();
     m_Keyboard->Init();
 
+    m_Controller = std::make_shared<Controller>(0);
+    m_Controller->Init();
+
+    m_KeyEvents.insert(std::make_pair("OKAY", std::make_shared<InputEvent>()));
+    m_KeyEvents.find("OKAY")->second->SetEventStateTrigger(EPressedState::Pressed);
+    m_KeyEvents.find("OKAY")->second->AddKeyState(m_Keyboard->GetKeyState(GLFW_KEY_ENTER));
+    m_KeyEvents.find("OKAY")->second->AddKeyState(m_Controller->GetButtonState(GLFW_GAMEPAD_BUTTON_A));
+    m_KeyEvents.find("OKAY")->second->Register(this, &InputManager::ButtonActionTestMethod);
+
     return true;
 }
 
 void InputManager::Tick(float) {
+
+    m_Controller->ProcessStates();
+
+    for (auto keyEvents : m_KeyEvents) {
+        keyEvents.second->AttemptTrigger();
+    }
 
 }
 
@@ -46,6 +62,14 @@ InputManager* InputManager::Instance() {
 
 std::shared_ptr<class Keyboard> InputManager::GetKeyboard() {
     return m_Keyboard;
+}
+
+void InputManager::ButtonActionTestMethod() {
+    printf("OK Action is triggered!");
+}
+
+void InputManager::AxisButtonTestMethod(float) {
+
 }
 
 void InputManager::TriggerInputEvents() {

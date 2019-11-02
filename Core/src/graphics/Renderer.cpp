@@ -90,12 +90,10 @@ void Renderer::Tick(float deltaTime)
 {
 	GLFWwindow* window = glfwGetCurrentContext();
     glClear(GL_COLOR_BUFFER_BIT);
-    glfwPollEvents();
 
     std::string title = "RogueLike - " + std::to_string(static_cast<int>(1.f / deltaTime)) + "fps";
     glfwSetWindowTitle(window, title.c_str());
-    //@TODO design tick order for engine
-		
+
 	//Rendering
 	_shaderProgram.Use();
 	glBindTexture(GL_TEXTURE_2D, _textureNiels);
@@ -104,6 +102,7 @@ void Renderer::Tick(float deltaTime)
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     glfwSwapBuffers(window);
+    glfwPollEvents();
 }
 
 void Renderer::Deinit()

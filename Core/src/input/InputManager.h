@@ -1,6 +1,9 @@
 #pragma once
 
+#include "input/InputEvent.h"
+
 #include <memory>
+#include <map>
 
 class InputManager
 {
@@ -17,6 +20,9 @@ public:
 
     std::shared_ptr<class Keyboard> GetKeyboard();
 
+    void ButtonActionTestMethod();
+    void AxisButtonTestMethod(float axis);
+
 private:
 
     void TriggerInputEvents();
@@ -29,6 +35,10 @@ private:
 private:
 
     std::shared_ptr<class Keyboard> m_Keyboard;
+    std::shared_ptr<class Controller> m_Controller;
+
+    std::map<std::string, std::shared_ptr<InputEvent>> m_KeyEvents;
+    std::map<std::string, std::shared_ptr<AxisEvent>> m_AxisEvents;
 
     static InputManager* s_Instance;
 

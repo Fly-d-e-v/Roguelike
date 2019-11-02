@@ -46,6 +46,15 @@
     <Filter Include="Header Files\input\devices">
       <UniqueIdentifier>{374ade33-e545-4ee8-87df-9c964b4dc922}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\input\utils">
+      <UniqueIdentifier>{bc7d555a-6711-4500-b89e-ba932e523aad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{f95dd1e2-e3b0-40c5-93f6-1fa504cbedb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\event">
+      <UniqueIdentifier>{d72cef01-c76f-49d3-9b50-ab93ae7daa22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp">
@@ -118,6 +127,15 @@
     </ClInclude>
     <ClInclude Include="src\input\InputEvent.h">
       <Filter>Header Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\utils\InputEnums.h">
+      <Filter>Header Files\input\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\utils\InputTypes.h">
+      <Filter>Header Files\input\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\event\Event.h">
+      <Filter>Header Files\core\event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
