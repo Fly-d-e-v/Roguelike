@@ -55,6 +55,12 @@
     <Filter Include="Header Files\core\event">
       <UniqueIdentifier>{d72cef01-c76f-49d3-9b50-ab93ae7daa22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\audio">
+      <UniqueIdentifier>{9416c59a-2cc1-4787-885b-8c705341eb12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\audio">
+      <UniqueIdentifier>{a2300c75-731e-4a59-8886-a6c60925805f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp">
@@ -92,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="src\input\InputEvent.cpp">
       <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\audio\AudioEngine.cpp">
+      <Filter>Source Files\audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="src\core\event\Event.h">
       <Filter>Header Files\core\event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\audio\AudioEngine.h">
+      <Filter>Header Files\audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
