@@ -39,7 +39,7 @@ bool Renderer::Init() {
 	glfwSetErrorCallback(GLFWErrorCallback);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    GLFWwindow* window = glfwCreateWindow(500, 500, "RogueLike", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(640, 360, "RogueLike", NULL, NULL);
 	glfwSetFramebufferSizeCallback(window, GLFWFramebufferSizeCallback);
 	
 	if (!window) {
@@ -96,12 +96,10 @@ void Renderer::Tick(float deltaTime)
 {
 	GLFWwindow* window = glfwGetCurrentContext();
     glClear(GL_COLOR_BUFFER_BIT);
-    glfwPollEvents();
 
     std::string title = "RogueLike - " + std::to_string(static_cast<int>(1.f / deltaTime)) + "fps";
     glfwSetWindowTitle(window, title.c_str());
-    //@TODO design tick order for engine
-		
+
 	//Rendering
 	_shaderProgram->Use();
 	glBindTexture(GL_TEXTURE_2D, _textureNiels);
@@ -110,6 +108,7 @@ void Renderer::Tick(float deltaTime)
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     glfwSwapBuffers(window);
+    glfwPollEvents();
 }
 
 void Renderer::Deinit()

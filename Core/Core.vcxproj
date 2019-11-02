@@ -180,15 +180,28 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\graphics\Renderer.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
+    <ClCompile Include="src\input\devices\Controller.cpp" />
+    <ClCompile Include="src\input\devices\Keyboard.cpp" />
+    <ClCompile Include="src\input\devices\Mouse.cpp" />
+    <ClCompile Include="src\input\InputEvent.cpp" />
+    <ClCompile Include="src\input\InputManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp" />
     <ClCompile Include="src\platform\PlatformInterface.cpp" />
     <ClCompile Include="src\thirdparty\glad\glad.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\event\Event.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
     <ClInclude Include="src\graphics\Shader.h" />
+    <ClInclude Include="src\input\devices\Controller.h" />
+    <ClInclude Include="src\input\devices\Keyboard.h" />
+    <ClInclude Include="src\input\devices\Mouse.h" />
+    <ClInclude Include="src\input\InputEvent.h" />
+    <ClInclude Include="src\input\InputManager.h" />
+    <ClInclude Include="src\input\utils\InputEnums.h" />
+    <ClInclude Include="src\input\utils\InputTypes.h" />
     <ClInclude Include="src\platform\PlatformInterface.h" />
     <ClInclude Include="src\platform\PlatformFriendInterface.h" />
     <ClInclude Include="src\thirdparty\stb_image.h" />
