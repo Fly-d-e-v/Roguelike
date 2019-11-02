@@ -18,6 +18,6 @@ public:
 
 private:
 
-    std::map<int, std::shared_ptr<KeyState>> m_Keys;
+    std::map<int, std::shared_ptr<KeyState>> _Keys;
 
 };

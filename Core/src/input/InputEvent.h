@@ -17,8 +17,8 @@ public:
 
 private:
 
-    std::vector<std::shared_ptr<KeyState>> m_KeyAction;
-    EPressedState m_EventStateTrigger;
+    std::vector<std::shared_ptr<KeyState>> _KeyAction;
+    EPressedState _EventStateTrigger;
 
 };
 
@@ -32,6 +32,6 @@ public:
 
 private:
 
-    std::vector<std::shared_ptr<AxisState>> m_AxisBinding;
+    std::vector<std::shared_ptr<AxisState>> _AxisBinding;
 
 };

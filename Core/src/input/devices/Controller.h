@@ -20,10 +20,10 @@ public:
 
 private:
 
-    std::map<int, std::shared_ptr<KeyState>> m_Buttons;
-    std::map<int, std::shared_ptr<AxisState>> m_Axis;
+    std::map<int, std::shared_ptr<KeyState>> _Buttons;
+    std::map<int, std::shared_ptr<AxisState>> _Axis;
 
-    int m_ControllerID;
-    bool m_Connected;
+    int _ControllerID;
+    bool _Connected;
 
 };

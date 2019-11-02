@@ -25,16 +25,16 @@ public:
 
     template<typename BindingType>
     void BindInputAction(std::string actionName, BindingType* bindingTypeInstance, void(BindingType::* FunctionPtr)()) {
-        auto keyEvent = m_KeyEvents.find(actionName);
-        if (keyEvent != m_KeyEvents.end()) {
+        auto keyEvent = _KeyEvents.find(actionName);
+        if (keyEvent != _KeyEvents.end()) {
             keyEvent->second->Register(bindingTypeInstance, FunctionPtr);
         }
     }
 
     template<typename BindingType>
     void BindInputAxis(std::string actionName, BindingType* bindingTypeInstance, void(BindingType::* FunctionPtr)(float)) {
-        auto axisEvent = m_AxisEvents.find(actionName);
-        if (axisEvent != m_AxisEvents.end()) {
+        auto axisEvent = _AxisEvents.find(actionName);
+        if (axisEvent != _AxisEvents.end()) {
             axisEvent->second->Register(bindingTypeInstance, FunctionPtr);
         }
     }
@@ -50,11 +50,11 @@ private:
 
 private:
 
-    std::shared_ptr<class Keyboard> m_Keyboard;
-    std::shared_ptr<class Controller> m_Controller;
+    std::shared_ptr<class Keyboard> _Keyboard;
+    std::shared_ptr<class Controller> _Controller;
 
-    std::map<std::string, std::shared_ptr<InputEvent>> m_KeyEvents;
-    std::map<std::string, std::shared_ptr<AxisEvent>> m_AxisEvents;
+    std::map<std::string, std::shared_ptr<InputEvent>> _KeyEvents;
+    std::map<std::string, std::shared_ptr<AxisEvent>> _AxisEvents;
 
     static std::shared_ptr<InputManager> s_Instance;
 

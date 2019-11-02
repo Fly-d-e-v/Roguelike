@@ -21,26 +21,26 @@ bool InputManager::Init() {
     glfwSetCursorPosCallback(window, cursor_position_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
 
-    m_Keyboard = std::make_shared<Keyboard>();
-    m_Keyboard->Init();
+    _Keyboard = std::make_shared<Keyboard>();
+    _Keyboard->Init();
 
-    m_Controller = std::make_shared<Controller>(0);
-    m_Controller->Init();
+    _Controller = std::make_shared<Controller>(0);
+    _Controller->Init();
 
-    m_KeyEvents.insert(std::make_pair("OKAY", std::make_shared<InputEvent>()));
-    m_KeyEvents.find("OKAY")->second->SetEventStateTrigger(EPressedState::Pressed);
-    m_KeyEvents.find("OKAY")->second->AddKeyState(m_Keyboard->GetKeyState(GLFW_KEY_ENTER));
-    m_KeyEvents.find("OKAY")->second->AddKeyState(m_Controller->GetButtonState(GLFW_GAMEPAD_BUTTON_A));
-    m_KeyEvents.find("OKAY")->second->Register(this, &InputManager::ButtonActionTestMethod);
+    _KeyEvents.insert(std::make_pair("OKAY", std::make_shared<InputEvent>()));
+    _KeyEvents.find("OKAY")->second->SetEventStateTrigger(EPressedState::Pressed);
+    _KeyEvents.find("OKAY")->second->AddKeyState(_Keyboard->GetKeyState(GLFW_KEY_ENTER));
+    _KeyEvents.find("OKAY")->second->AddKeyState(_Controller->GetButtonState(GLFW_GAMEPAD_BUTTON_A));
+    _KeyEvents.find("OKAY")->second->Register(this, &InputManager::ButtonActionTestMethod);
 
     return true;
 }
 
 void InputManager::Tick(float) {
 
-    m_Controller->ProcessStates();
+    _Controller->ProcessStates();
 
-    for (auto keyEvents : m_KeyEvents) {
+    for (auto keyEvents : _KeyEvents) {
         keyEvents.second->AttemptTrigger();
     }
 
@@ -60,7 +60,7 @@ std::shared_ptr<InputManager> InputManager::Instance() {
 }
 
 std::shared_ptr<class Keyboard> InputManager::GetKeyboard() {
-    return m_Keyboard;
+    return _Keyboard;
 }
 
 void InputManager::ButtonActionTestMethod() {

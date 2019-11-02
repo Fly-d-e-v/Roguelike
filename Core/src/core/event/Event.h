@@ -30,19 +30,19 @@ private:
 
     public:
 
-        EventSubscription(Type* Object, void(Type::* FunctionPtr)(Args...)) { m_Subscriber = Object;  m_FunctionPtr = FunctionPtr; }
+        EventSubscription(Type* Object, void(Type::* FunctionPtr)(Args...)) { _Subscriber = Object;  _FunctionPtr = FunctionPtr; }
         virtual ~EventSubscription() {}
 
         virtual void DispatchToSubscriber(Args... args) override {
-            if (m_Subscriber != nullptr && m_FunctionPtr != nullptr) {
-                (*m_Subscriber.*m_FunctionPtr)(args...);
+            if (_Subscriber != nullptr && _FunctionPtr != nullptr) {
+                (*_Subscriber.*_FunctionPtr)(args...);
             }
         }
 
     private:
 
-        Type* m_Subscriber;
-        void(Type::* m_FunctionPtr)(Args...);
+        Type* _Subscriber;
+        void(Type::* _FunctionPtr)(Args...);
 
     };
 
@@ -51,18 +51,18 @@ public:
     Event() {}
 
     virtual ~Event() {
-        for (size_t i = 0; i < m_EventSubsribers.size(); i++) {
-            delete m_EventSubsribers[i];
+        for (size_t i = 0; i < _EventSubsribers.size(); i++) {
+            delete _EventSubsribers[i];
         }
-        m_EventSubsribers.clear();
+        _EventSubsribers.clear();
     }
 
     Event(const Event& Rhs) {
-        std::lock_guard<std::mutex> Lock(m_Mutex);
-        for (size_t i = 0; i < m_EventSubsribers.size(); i++) {
+        std::lock_guard<std::mutex> Lock(_Mutex);
+        for (size_t i = 0; i < _EventSubsribers.size(); i++) {
             BaseEventSubscription* CopiedSubscriber = new BaseEventSubscription();
-            &CopiedSubscriber = &m_EventSubsribers[i];
-            Rhs.m_EventSubsribers.push_back(CopiedSubscriber);
+            &CopiedSubscriber = &_EventSubsribers[i];
+            Rhs._EventSubsribers.push_back(CopiedSubscriber);
         }
     }
 
@@ -74,30 +74,30 @@ public:
     */
     template<typename SubscriberType>
     void Register(SubscriberType* Object, void(SubscriberType::* FunctionPtr)(Args...)) {
-        std::lock_guard<std::mutex> Lock(m_Mutex);
+        std::lock_guard<std::mutex> Lock(_Mutex);
         EventSubscription<SubscriberType, Args...>* Subscriber = new EventSubscription<SubscriberType, Args...>(Object, FunctionPtr);
-        m_EventSubsribers.push_back(Subscriber);
+        _EventSubsribers.push_back(Subscriber);
     }
 
     /*
     * @Description: Clears all registered subscribers from the Events
     */
     void UnregisterAll() {
-        std::lock_guard<std::mutex> Lock(m_Mutex);
+        std::lock_guard<std::mutex> Lock(_Mutex);
 
-        for (size_t i = 0; i < m_EventSubsribers.size(); i++) {
-            delete m_EventSubsribers[i];
+        for (size_t i = 0; i < _EventSubsribers.size(); i++) {
+            delete _EventSubsribers[i];
         }
-        m_EventSubsribers.clear();
+        _EventSubsribers.clear();
     }
 
     /*
     * @Description: Calls all Subscribed member functions
     */
     void Dispatch(Args... args) {
-        std::lock_guard<std::mutex> Lock(m_Mutex);
+        std::lock_guard<std::mutex> Lock(_Mutex);
 
-        for (BaseEventSubscription<Args...>* Subscriber : m_EventSubsribers) {
+        for (BaseEventSubscription<Args...>* Subscriber : _EventSubsribers) {
             if (Subscriber) {
                 Subscriber->DispatchToSubscriber(args...);
             }
@@ -106,8 +106,8 @@ public:
 
 private:
 
-    std::vector<BaseEventSubscription<Args...>*> m_EventSubsribers;
+    std::vector<BaseEventSubscription<Args...>*> _EventSubsribers;
 
-    std::mutex m_Mutex;
+    std::mutex _Mutex;
 
 };

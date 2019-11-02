@@ -1,23 +1,23 @@
 #include "InputEvent.h"
 
 void InputEvent::AddKeyState(std::shared_ptr<KeyState> keyState) {
-    m_KeyAction.push_back(keyState);
+    _KeyAction.push_back(keyState);
 }
 
 void InputEvent::SetEventStateTrigger(EPressedState pressedState) {
-    m_EventStateTrigger = pressedState;
+    _EventStateTrigger = pressedState;
 }
 
 void InputEvent::AttemptTrigger() {
-    for (auto keyState : m_KeyAction) {
-        if (keyState->m_State == m_EventStateTrigger) {
+    for (auto keyState : _KeyAction) {
+        if (keyState->_State == _EventStateTrigger) {
             Dispatch();
-            switch (keyState->m_State) {
+            switch (keyState->_State) {
             case EPressedState::Pressed:
-                keyState->m_State = EPressedState::Held;
+                keyState->_State = EPressedState::Held;
                 break;
             case EPressedState::Released:
-                keyState->m_State = EPressedState::None;
+                keyState->_State = EPressedState::None;
                 break;
             }
             return;
@@ -26,11 +26,11 @@ void InputEvent::AttemptTrigger() {
 }
 
 void AxisEvent::AddKeyState(std::shared_ptr<AxisState> keyState) {
-    m_AxisBinding.push_back(keyState);
+    _AxisBinding.push_back(keyState);
 }
 
 void AxisEvent::AttemptTrigger() {
-    for (auto axisState : m_AxisBinding) {
-        Dispatch(axisState->m_Value);
+    for (auto axisState : _AxisBinding) {
+        Dispatch(axisState->_Value);
     }
 }

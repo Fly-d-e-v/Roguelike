@@ -2,7 +2,7 @@
 
 #include "GLFW/glfw3.h"
 
-Controller::Controller(int id) : m_ControllerID(id), m_Connected(false) {
+Controller::Controller(int id) : _ControllerID(id), _Connected(false) {
 
 }
 
@@ -11,54 +11,54 @@ void Controller::Init() {
     for (int i = 0; i <= GLFW_GAMEPAD_BUTTON_LAST; i++) {
         std::shared_ptr<KeyState> button = std::make_shared<KeyState>();
         button->m_ID = i;
-        m_Buttons.insert(std::make_pair(i, button));
+        _Buttons.insert(std::make_pair(i, button));
     }
 
     for (int i = 0; i <= GLFW_GAMEPAD_AXIS_LAST; i++) {
         std::shared_ptr<AxisState> axis = std::make_shared<AxisState>();
         axis->m_ID = i;
-        m_Axis.insert(std::make_pair(i, axis));
+        _Axis.insert(std::make_pair(i, axis));
     }
 }
 
 void Controller::ProcessStates() {
 
-    m_Connected = static_cast<bool>(glfwJoystickPresent(m_ControllerID));
+    _Connected = static_cast<bool>(glfwJoystickPresent(_ControllerID));
 
-    if (m_Connected) {
+    if (_Connected) {
         int count;
-        const unsigned char* buttons = glfwGetJoystickButtons(m_ControllerID, &count);
-        for (int i = 0; i < m_Buttons.size(); i++) {
-            EPressedState previousState = m_Buttons[i]->m_State;
+        const unsigned char* buttons = glfwGetJoystickButtons(_ControllerID, &count);
+        for (int i = 0; i < _Buttons.size(); i++) {
+            EPressedState previousState = _Buttons[i]->_State;
             switch (buttons[i]) {
             case GLFW_PRESS:
                 if (previousState == EPressedState::Released) {
-                    m_Buttons[i]->m_State = EPressedState::Pressed;
+                    _Buttons[i]->_State = EPressedState::Pressed;
                     continue;
                 }
                 else if (previousState == EPressedState::Pressed) {
-                    m_Buttons[i]->m_State = EPressedState::Held;
+                    _Buttons[i]->_State = EPressedState::Held;
                 }
                 break;
             case GLFW_RELEASE:
-                m_Buttons[i]->m_State = EPressedState::Released;
+                _Buttons[i]->_State = EPressedState::Released;
                 break;
             }
         }
 
-        const float* axisStates = glfwGetJoystickAxes(m_ControllerID, &count);
-        for (int i = 0; i < m_Axis.size(); i++) {
-            m_Axis[i]->m_Value = axisStates[i];
-            if (m_Axis[i]->m_Value == 1.0f) {
+        const float* axisStates = glfwGetJoystickAxes(_ControllerID, &count);
+        for (int i = 0; i < _Axis.size(); i++) {
+            _Axis[i]->_Value = axisStates[i];
+            if (_Axis[i]->_Value == 1.0f) {
             }
         }
     }
 }
 
 std::shared_ptr<KeyState> Controller::GetButtonState(int id) {
-    return m_Buttons.find(id)->second;
+    return _Buttons.find(id)->second;
 }
 
 std::shared_ptr<AxisState> Controller::GetAxisState(int id) {
-    return m_Axis.find(id)->second;
+    return _Axis.find(id)->second;
 }
