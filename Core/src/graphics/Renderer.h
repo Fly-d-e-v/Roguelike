@@ -2,7 +2,7 @@
 
 #include "thirdparty/glad/glad.h"
 #include "thirdparty/GLFW/glfw3.h"
-#include "thirdparty/glm/glm/glm.hpp"
+#include "thirdparty/glm/glm.hpp"
 #include "Shader.h"
 
 class Renderer
