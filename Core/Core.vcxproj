@@ -194,6 +194,7 @@ xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutD
       <FileType>Document</FileType>
     </Text>
     <ClCompile Include="src\audio\AudioEngine.cpp" />
+    <ClCompile Include="src\core\utils\Utilities.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\graphics\Renderer.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
@@ -210,6 +211,7 @@ xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutD
   <ItemGroup>
     <ClInclude Include="src\audio\AudioEngine.h" />
     <ClInclude Include="src\core\event\Event.h" />
+    <ClInclude Include="src\core\utils\Utilities.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
     <ClInclude Include="src\graphics\Shader.h" />
