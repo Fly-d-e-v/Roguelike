@@ -69,6 +69,14 @@
     </Filter>
     <Filter Include="Header Files\thirdparty\ImGui">
       <UniqueIdentifier>{e98e7790-8da8-4da4-9d92-d2dad5f03929}</UniqueIdentifier>
+    <Filter Include="Header Files\core\utils">
+      <UniqueIdentifier>{4bf1484f-15fb-4703-b960-a012ba9001bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{24a56d3c-c692-4af2-b74f-f648581d5c8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\utils">
+      <UniqueIdentifier>{ace0ea1e-a74a-4063-8751-27030ce7e4e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +136,8 @@
     </ClCompile>
     <ClCompile Include="src\thirdparty\imgui-1.73\imgui.cpp">
       <Filter>Source Files\thirdparty\ImGui</Filter>
+    <ClCompile Include="src\core\utils\Utilities.cpp">
+      <Filter>Source Files\core\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +209,8 @@
     </ClInclude>
     <ClInclude Include="src\thirdparty\imgui-1.73\imgui_internal.h">
       <Filter>Header Files\thirdparty\ImGui</Filter>
+    <ClInclude Include="src\core\utils\Utilities.h">
+      <Filter>Header Files\core\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@
 #include "graphics/Renderer.h"
 #include "input/InputManager.h"
 #include "audio/AudioEngine.h"
+#include "core/utils/Utilities.h"
 
 Engine* Engine::s_Instance = nullptr;
 
