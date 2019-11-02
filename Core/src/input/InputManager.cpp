@@ -7,14 +7,13 @@
 
 #include <iostream>
 
-InputManager* InputManager::s_Instance = nullptr;
+std::shared_ptr<InputManager> InputManager::s_Instance = nullptr;
 
 InputManager::InputManager() {
 
 }
 
 bool InputManager::Init() {
-
 
     GLFWwindow* window = glfwGetCurrentContext();
     
@@ -51,10 +50,10 @@ void InputManager::Deinit() {
 
 }
 
-InputManager* InputManager::Instance() {
+std::shared_ptr<InputManager> InputManager::Instance() {
 
     if (s_Instance == nullptr) {
-        s_Instance = new InputManager();
+        s_Instance = std::make_shared<InputManager>();
     }
 
     return s_Instance;
