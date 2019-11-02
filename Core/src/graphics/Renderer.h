@@ -52,6 +52,6 @@ private:
 
 	static bool _didResize;
 
-	unsigned int _textureNiels = 0u;
+    std::shared_ptr<class Texture> _NielsTexture;
 
 };

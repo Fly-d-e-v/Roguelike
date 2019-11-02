@@ -85,6 +85,24 @@
     <Filter Include="Source Files\core\config">
       <UniqueIdentifier>{5c4dface-c69e-4d4a-8893-0ff68dbcf05d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\resources">
+      <UniqueIdentifier>{bc8d0609-47d8-495d-9cde-bb2ed4c007f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resources">
+      <UniqueIdentifier>{748eed2c-7243-40c5-b65d-781bb248cd83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resources\loaders">
+      <UniqueIdentifier>{12a6fbda-64b6-42e9-96b2-5cb067d58ac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resources\resources">
+      <UniqueIdentifier>{85fed265-a54e-4326-8e33-7b8ada6e3d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resources\loaders">
+      <UniqueIdentifier>{ef12e4b6-7074-49c9-8db6-d85d8c8031a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resources\resources">
+      <UniqueIdentifier>{a1728305-f7a1-46eb-a217-6f4f570f5a3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp">
@@ -103,9 +121,6 @@
       <Filter>Source Files\thirdparty\glad</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\Renderer.cpp">
-      <Filter>Source Files\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\graphics\Shader.cpp">
       <Filter>Source Files\graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\input\InputManager.cpp">
@@ -153,6 +168,15 @@
     <ClCompile Include="src\core\config\Config.cpp">
       <Filter>Source Files\core\config</Filter>
     </ClCompile>
+    <ClCompile Include="src\resources\loaders\TextureLoader.cpp">
+      <Filter>Source Files\resources\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\loaders\ShaderLoader.cpp">
+      <Filter>Source Files\resources\loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\resources\Shader.cpp">
+      <Filter>Source Files\resources\resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\platform\PlatformFriendInterface.h">
@@ -165,9 +189,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\Renderer.h">
-      <Filter>Header Files\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="src\graphics\Shader.h">
       <Filter>Header Files\graphics</Filter>
     </ClInclude>
     <ClInclude Include="src\thirdparty\stb_image.h">
@@ -233,15 +254,25 @@
     <ClInclude Include="src\core\config\ConfigLoader.h">
       <Filter>Header Files\core\config</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Resources\Shaders\BasicVertex.glsl">
-      <Filter>Resource Files\Shaders</Filter>
-    </Text>
+    <ClInclude Include="src\resources\resources\Texture.h">
+      <Filter>Header Files\resources\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resources\loaders\TextureLoader.h">
+      <Filter>Header Files\resources\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resources\loaders\ShaderLoader.h">
+      <Filter>Header Files\resources\loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resources\resources\Shader.h">
+      <Filter>Header Files\resources\resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Resources\Shaders\BasicFragment.glsl">
       <Filter>Resource Files\Shaders</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\BasicVertex.glsl" />
   </ItemGroup>
 </Project>

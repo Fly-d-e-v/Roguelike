@@ -1,13 +1,15 @@
 #include "Renderer.h"
-#include "Shader.h"
+
+#include "resources/resources/Shader.h"
+#include "resources/loaders/ShaderLoader.h"
 
 #include "Engine.h"
 #include "core/config/Config.h"
 
-#include <string>
+#include "resources/loaders/TextureLoader.h"
+#include "resources/resources/Texture.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include <string>
 
 #include "thirdparty/glad/glad.h"
 #include "thirdparty/GLFW/glfw3.h"
@@ -98,8 +100,7 @@ bool Renderer::Init() {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	//TODO: Assume we'll be using several shader programs, loading shaders and uniforms should probably be handled better... This solution is fine if we stick with a single shader.
-	_shaderProgram = std::make_shared<Shader>();
-	_shaderProgram->Load("Resources/Shaders/BasicVertex.glsl", "Resources/Shaders/BasicFragment.glsl");
+	_shaderProgram = ShaderLoader::LoadShader("Resources/Shaders/BasicVertex.glsl", "Resources/Shaders/BasicFragment.glsl");
 
 	_model_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "model");
 	_view_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "view");
@@ -137,7 +138,6 @@ bool show_demo_window = true;
 bool show_another_window = false;
 ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-
 void Renderer::Tick(float deltaTime)
 {
 	GLFWwindow* window = glfwGetCurrentContext();
@@ -152,7 +152,7 @@ void Renderer::Tick(float deltaTime)
 
 	//Rendering
 	_shaderProgram->Use();
-	glBindTexture(GL_TEXTURE_2D, _textureNiels);
+	glBindTexture(GL_TEXTURE_2D, _NielsTexture->_textureID);
 	glBindVertexArray(_vao);
 
 	//TODO: Should be handled by Entity, wake me up when we have an ECS
@@ -202,25 +202,8 @@ void Renderer::GLFWFramebufferSizeCallback(GLFWwindow* window, int width, int he
 
 bool Renderer::LoadResources()
 {
-	stbi_set_flip_vertically_on_load(true);
-	{//Niels Texture
-		int width, height, nrChannels;
-		unsigned char* textureData = stbi_load("Resources/Textures/Niels.jpg", &width, &height, &nrChannels, 0);
+    _NielsTexture = TextureLoader::LoadTexture("Resources/Textures/Niels.jpg");
 
-		if (textureData) {
-			glGenTextures(1, &_textureNiels);
-			glBindTexture(GL_TEXTURE_2D, _textureNiels);
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureData);
-		}
-		else {
-			printf("Failure loading texture Niels\n");
-			return false;
-		}
-		stbi_image_free(textureData);
-	}
 	_model_matrix = glm::translate(_model_matrix, glm::vec3(static_cast<float>(_width) * 0.5f, static_cast<float>(_height) * 0.5f, 0.f));
 	_model_matrix = glm::scale(_model_matrix, glm::vec3(150.f, 150.f, 1.f));
 

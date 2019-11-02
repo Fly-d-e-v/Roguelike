@@ -190,6 +190,9 @@ xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutD
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\resources\loaders\ShaderLoader.cpp" />
+    <ClCompile Include="src\resources\loaders\TextureLoader.cpp" />
+    <ClCompile Include="src\resources\resources\Shader.cpp" />
     <ClCompile Include="src\thirdparty\imgui-1.73\imgui.cpp" />
     <ClCompile Include="src\thirdparty\imgui-1.73\imgui_demo.cpp" />
     <ClCompile Include="src\thirdparty\imgui-1.73\imgui_draw.cpp" />
@@ -205,7 +208,6 @@ xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutD
     <ClCompile Include="src\core\utils\Utilities.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\graphics\Renderer.cpp" />
-    <ClCompile Include="src\graphics\Shader.cpp" />
     <ClCompile Include="src\input\devices\Controller.cpp" />
     <ClCompile Include="src\input\devices\Keyboard.cpp" />
     <ClCompile Include="src\input\devices\Mouse.cpp" />
@@ -224,7 +226,6 @@ xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutD
     <ClInclude Include="src\core\utils\Utilities.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
-    <ClInclude Include="src\graphics\Shader.h" />
     <ClInclude Include="src\input\devices\Controller.h" />
     <ClInclude Include="src\input\devices\Keyboard.h" />
     <ClInclude Include="src\input\devices\Mouse.h" />
@@ -234,6 +235,10 @@ xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutD
     <ClInclude Include="src\input\utils\InputTypes.h" />
     <ClInclude Include="src\platform\PlatformInterface.h" />
     <ClInclude Include="src\platform\PlatformFriendInterface.h" />
+    <ClInclude Include="src\resources\loaders\ShaderLoader.h" />
+    <ClInclude Include="src\resources\loaders\TextureLoader.h" />
+    <ClInclude Include="src\resources\resources\Shader.h" />
+    <ClInclude Include="src\resources\resources\Texture.h" />
     <ClInclude Include="src\thirdparty\imgui-1.73\imconfig.h" />
     <ClInclude Include="src\thirdparty\imgui-1.73\imgui.h" />
     <ClInclude Include="src\thirdparty\imgui-1.73\imgui_impl_glfw.h" />
