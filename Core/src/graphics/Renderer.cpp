@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+#include "resources/ResourceManager.h"
+
 #include "resources/resources/Shader.h"
 #include "resources/loaders/ShaderLoader.h"
 
@@ -100,7 +102,7 @@ bool Renderer::Init() {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	//TODO: Assume we'll be using several shader programs, loading shaders and uniforms should probably be handled better... This solution is fine if we stick with a single shader.
-	_shaderProgram = ShaderLoader::LoadShader("Resources/Shaders/BasicVertex.glsl", "Resources/Shaders/BasicFragment.glsl");
+    _shaderProgram = ResourceManager::Instance()->FetchResource<Shader>("Resources/Shaders/BasicVertex.shader");
 
 	_model_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "model");
 	_view_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "view");
@@ -202,7 +204,7 @@ void Renderer::GLFWFramebufferSizeCallback(GLFWwindow* window, int width, int he
 
 bool Renderer::LoadResources()
 {
-    _NielsTexture = TextureLoader::LoadTexture("Resources/Textures/Niels.jpg");
+    _NielsTexture = ResourceManager::Instance()->FetchResource<Texture>("Resources/Textures/Niels.jpg");
 
 	_model_matrix = glm::translate(_model_matrix, glm::vec3(static_cast<float>(_width) * 0.5f, static_cast<float>(_height) * 0.5f, 0.f));
 	_model_matrix = glm::scale(_model_matrix, glm::vec3(150.f, 150.f, 1.f));

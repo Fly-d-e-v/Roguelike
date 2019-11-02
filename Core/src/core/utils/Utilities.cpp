@@ -15,3 +15,11 @@ long long Utilities::ComputeStringHash(std::string const& s) {
 std::string Utilities::GetRootFolder() {
     return "";
 }
+
+std::string Utilities::GetFileExtention(const std::string& path) {
+    size_t lastIndex = path.find_last_of('.');
+    if (lastIndex != std::string::npos) {
+        return path.substr(lastIndex, path.size());
+    }
+    return "";
+}

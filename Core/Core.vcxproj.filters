@@ -177,6 +177,15 @@
     <ClCompile Include="src\resources\resources\Shader.cpp">
       <Filter>Source Files\resources\resources</Filter>
     </ClCompile>
+    <ClCompile Include="src\resources\ResourceManager.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\resources\Resource.cpp">
+      <Filter>Source Files\resources\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\resources\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\platform\PlatformFriendInterface.h">
@@ -264,6 +273,12 @@
       <Filter>Header Files\resources\loaders</Filter>
     </ClInclude>
     <ClInclude Include="src\resources\resources\Shader.h">
+      <Filter>Header Files\resources\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resources\ResourceManager.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resources\resources\Resource.h">
       <Filter>Header Files\resources\resources</Filter>
     </ClInclude>
   </ItemGroup>

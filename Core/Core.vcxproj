@@ -192,7 +192,10 @@ xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutD
   <ItemGroup>
     <ClCompile Include="src\resources\loaders\ShaderLoader.cpp" />
     <ClCompile Include="src\resources\loaders\TextureLoader.cpp" />
+    <ClCompile Include="src\resources\ResourceManager.cpp" />
+    <ClCompile Include="src\resources\resources\Resource.cpp" />
     <ClCompile Include="src\resources\resources\Shader.cpp" />
+    <ClCompile Include="src\resources\resources\Texture.cpp" />
     <ClCompile Include="src\thirdparty\imgui-1.73\imgui.cpp" />
     <ClCompile Include="src\thirdparty\imgui-1.73\imgui_demo.cpp" />
     <ClCompile Include="src\thirdparty\imgui-1.73\imgui_draw.cpp" />
@@ -237,6 +240,8 @@ xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutD
     <ClInclude Include="src\platform\PlatformFriendInterface.h" />
     <ClInclude Include="src\resources\loaders\ShaderLoader.h" />
     <ClInclude Include="src\resources\loaders\TextureLoader.h" />
+    <ClInclude Include="src\resources\ResourceManager.h" />
+    <ClInclude Include="src\resources\resources\Resource.h" />
     <ClInclude Include="src\resources\resources\Shader.h" />
     <ClInclude Include="src\resources\resources\Texture.h" />
     <ClInclude Include="src\thirdparty\imgui-1.73\imconfig.h" />

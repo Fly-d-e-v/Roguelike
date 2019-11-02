@@ -5,6 +5,7 @@
 #include "input/InputManager.h"
 #include "audio/AudioEngine.h"
 #include "core/utils/Utilities.h"
+#include "resources/ResourceManager.h"
 
 #include "core/config/ConfigLoader.h"
 #include "core/config/Config.h"
@@ -28,12 +29,10 @@ void Engine::Main()
 
 Engine* Engine::Instance()
 {
-
     if (s_Instance == nullptr)
     {
         s_Instance = new Engine();
     }
-
     return s_Instance;
 }
 
@@ -45,6 +44,7 @@ Engine::Engine() : m_PastFrame()
 void Engine::Init()
 {
     PlatformInterface::Init();
+    ResourceManager::Instance()->LoadResourceList();
 
     m_PastFrame = std::chrono::system_clock::now();
 
@@ -67,6 +67,7 @@ void Engine::Deinit()
 {
     InputManager::Instance()->Deinit();
     m_Renderer->Deinit();
+    ResourceManager::Instance()->SaveResourceList();
     PlatformInterface::Deinit();
 }
 

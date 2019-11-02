@@ -8,6 +8,6 @@ public:
 
     static long long ComputeStringHash(std::string const& s);
 
-    std::string GetRootFolder();
-
+    static std::string GetRootFolder();
+    static std::string GetFileExtention(const std::string& path);
 };

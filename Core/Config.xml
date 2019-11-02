@@ -3,8 +3,8 @@
 	<value0>
 		<_VSyncEnabled>false</_VSyncEnabled>
 		<_FullScreenEnabled>false</_FullScreenEnabled>
-		<_ScreenWidth>800</_ScreenWidth>
-		<_ScreenHeight>800</_ScreenHeight>
+		<_ScreenWidth>1000</_ScreenWidth>
+		<_ScreenHeight>1000</_ScreenHeight>
 	</value0>
 </cereal>
 

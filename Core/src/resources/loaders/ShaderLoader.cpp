@@ -7,7 +7,14 @@
 #include <sstream>
 
 std::shared_ptr<class Shader> ShaderLoader::LoadShader(const std::string& vertexPath, const std::string& fragmentPath) {
-    
+    std::shared_ptr<Shader> shaderHandle = std::make_shared<Shader>();
+    shaderHandle->VertexPath = vertexPath;
+    shaderHandle->FragmentPath = fragmentPath;
+    LoadShader(shaderHandle);
+    return shaderHandle;
+}
+
+void ShaderLoader::LoadShader(std::shared_ptr<class Shader> shaderHandle) {
     std::string vertexCode;
     std::string fragmentCode;
     std::ifstream vsFile;
@@ -17,8 +24,8 @@ std::shared_ptr<class Shader> ShaderLoader::LoadShader(const std::string& vertex
     fsFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
     try {
-        vsFile.open(vertexPath);
-        fsFile.open(fragmentPath);
+        vsFile.open(shaderHandle->VertexPath);
+        fsFile.open(shaderHandle->FragmentPath);
 
         std::stringstream vsStream, fsStream;
         vsStream << vsFile.rdbuf();
@@ -33,7 +40,6 @@ std::shared_ptr<class Shader> ShaderLoader::LoadShader(const std::string& vertex
     }
     catch (std::ifstream::failure e) {
         printf("Error: Shader file couldn't be loaded: %s", e.what());
-        return nullptr;
     }
 
     const char* vertexShaderSource = vertexCode.c_str();
@@ -66,8 +72,6 @@ std::shared_ptr<class Shader> ShaderLoader::LoadShader(const std::string& vertex
         fprintf(stderr, "Error: Fragment Shader compilation failed %s\n", infoLog);
     }
 
-    std::shared_ptr<Shader> shaderHandle = std::make_shared<Shader>();
-
     //Linking Shaders
     shaderHandle->ID = glCreateProgram();
     glAttachShader(shaderHandle->ID, vertexShader);
@@ -84,5 +88,6 @@ std::shared_ptr<class Shader> ShaderLoader::LoadShader(const std::string& vertex
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    return shaderHandle;
+    shaderHandle->IsLoaded = true;
 }
+
