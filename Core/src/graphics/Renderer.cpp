@@ -34,7 +34,7 @@ bool Renderer::Init() {
 	glfwSetErrorCallback(GLFWErrorCallback);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    GLFWwindow* window = glfwCreateWindow(500, 500, "RogueLike", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(640, 360, "RogueLike", NULL, NULL);
 	glfwSetFramebufferSizeCallback(window, GLFWFramebufferSizeCallback);
 	
 	if (!window) {
