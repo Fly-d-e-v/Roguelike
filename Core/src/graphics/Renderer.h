@@ -2,6 +2,8 @@
 #define OPENGL //TODO: Should be done by CMAKE
 #include <memory>
 
+#include "core/event/Event.h"
+
 class Renderer
 {
 
@@ -14,13 +16,24 @@ public:
     void Tick(float deltaTime);
     void Deinit();
 
+    template<typename ObjectInstance>
+    void RegisterImguiMethod(ObjectInstance* obj, void(ObjectInstance::* FunctionPtr)()) {
+        _ImguiRenderEvent->Register(obj, FunctionPtr);
+    }
+
     bool ShutdownRequested();
 
 private:
 
 	bool LoadResources();
 
+    void TickImgui(float deltaTime);
+
+    void ImGuiDemo();
+
 	std::shared_ptr<class Shader> _shaderProgram;
+
+    std::shared_ptr<class Event<>> _ImguiRenderEvent;
 
 #ifdef OPENGL
 
