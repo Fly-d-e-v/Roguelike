@@ -69,6 +69,7 @@
     </Filter>
     <Filter Include="Header Files\thirdparty\ImGui">
       <UniqueIdentifier>{e98e7790-8da8-4da4-9d92-d2dad5f03929}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\core\utils">
       <UniqueIdentifier>{4bf1484f-15fb-4703-b960-a012ba9001bc}</UniqueIdentifier>
     </Filter>
@@ -142,6 +143,7 @@
     </ClCompile>
     <ClCompile Include="src\thirdparty\imgui-1.73\imgui.cpp">
       <Filter>Source Files\thirdparty\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="src\core\utils\Utilities.cpp">
       <Filter>Source Files\core\utils</Filter>
     </ClCompile>
@@ -221,6 +223,7 @@
     </ClInclude>
     <ClInclude Include="src\thirdparty\imgui-1.73\imgui_internal.h">
       <Filter>Header Files\thirdparty\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\utils\Utilities.h">
       <Filter>Header Files\core\utils</Filter>
     </ClInclude>
@@ -232,9 +235,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Shaders\BasicVertex.glsl">
+    <Text Include="Resources\Shaders\BasicVertex.glsl">
       <Filter>Resource Files\Shaders</Filter>
-    </None>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Resources\Shaders\BasicFragment.glsl">
