@@ -2,6 +2,8 @@
 
 #include "GLFW/glfw3.h"
 
+#include <cstdint>
+
 Controller::Controller(int id) : _ControllerID(id), _Connected(false) {
 
 }
@@ -28,7 +30,7 @@ void Controller::ProcessStates() {
     if (_Connected) {
         int count;
         const unsigned char* buttons = glfwGetJoystickButtons(_ControllerID, &count);
-        for (size_t i = 0; i < _Buttons.size(); i++) {
+        for (uint32_t i = 0; i < _Buttons.size(); i++) {
             EPressedState previousState = _Buttons[i]->_State;
             switch (buttons[i]) {
             case GLFW_PRESS:
@@ -47,10 +49,8 @@ void Controller::ProcessStates() {
         }
 
         const float* axisStates = glfwGetJoystickAxes(_ControllerID, &count);
-        for (size_t i = 0; i < _Axis.size(); i++) {
+        for (uint32_t i = 0; i < _Axis.size(); i++) {
             _Axis[i]->_Value = axisStates[i];
-            if (_Axis[i]->_Value == 1.0f) {
-            }
         }
     }
 }
