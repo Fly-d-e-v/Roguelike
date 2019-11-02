@@ -51,8 +51,6 @@ void Controller::ProcessStates() {
         const float* axisStates = glfwGetJoystickAxes(_ControllerID, &count);
         for (uint32_t i = 0; i < _Axis.size(); i++) {
             _Axis[i]->_Value = axisStates[i];
-            if (_Axis[i]->_Value == 1.0f) {
-            }
         }
     }
 }
