@@ -3,6 +3,7 @@
 #include "platform/PlatformInterface.h"
 #include "graphics/Renderer.h"
 #include "input/InputManager.h"
+#include "audio/AudioEngine.h"
 
 Engine* Engine::s_Instance = nullptr;
 
@@ -45,7 +46,7 @@ void Engine::Init()
 
     m_Renderer->Init();
     InputManager::Instance()->Init();
-
+    AudioEngine::Instance()->Init();
 }
 
 void Engine::Tick(float deltaTime)

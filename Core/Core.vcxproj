@@ -97,12 +97,16 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>steam_api.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);glfw3.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\FMOD\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>steam_api.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);glfw3.lib;fmod_vc.lib;fmodL_vc.lib;fmodstudio_vc.lib;fmodstudioL_vc.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d $(SolutionDir)lib\thirdparty\Steam\$(Platform)\steam_api.dll $(OutDir)
-xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
+xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmod.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodL.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudio.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -117,12 +121,16 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>steam_api64.lib;%(AdditionalDependencies);glfw3.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\FMOD\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>steam_api64.lib;%(AdditionalDependencies);glfw3.lib;fmod_vc.lib;fmodL_vc.lib;fmodstudio_vc.lib;fmodstudioL_vc.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d $(SolutionDir)lib\thirdparty\Steam\$(Platform)\steam_api64.dll $(OutDir)
-xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
+xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmod.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodL.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudio.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -141,12 +149,16 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>steam_api.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);glfw3.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\FMOD\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>steam_api.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);glfw3.lib;fmod_vc.lib;fmodL_vc.lib;fmodstudio_vc.lib;fmodstudioL_vc.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d $(SolutionDir)lib\thirdparty\Steam\$(Platform)\steam_api.dll $(OutDir)
-xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
+xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmod.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodL.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudio.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -165,18 +177,23 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>steam_api64.lib;%(AdditionalDependencies);glfw3.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Solution)lib\thirdparty\GLFW\$(Platform)\;$(Solution)lib\thirdparty\FMOD\$(Platform)\;$(Solution)lib\thirdparty\Steam\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>steam_api64.lib;%(AdditionalDependencies);glfw3.lib;fmod_vc.lib;fmodL_vc.lib;fmodstudio_vc.lib;fmodstudioL_vc.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d $(SolutionDir)lib\thirdparty\Steam\$(Platform)\steam_api64.dll $(OutDir)
-xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
+xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmod.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodL.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudio.dll $(OutDir)
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="Resources\Shaders\BasicFragment.glsl">
       <FileType>Document</FileType>
     </Text>
+    <ClCompile Include="src\audio\AudioEngine.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\graphics\Renderer.cpp" />
     <ClCompile Include="src\graphics\Shader.cpp" />
@@ -191,6 +208,7 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)</Command>
     <ClCompile Include="src\thirdparty\glad\glad.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\audio\AudioEngine.h" />
     <ClInclude Include="src\core\event\Event.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
