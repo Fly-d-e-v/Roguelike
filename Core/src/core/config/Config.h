@@ -20,7 +20,7 @@ public:
     //GraphicsConfig
     bool _VSyncEnabled = false;
     bool _FullScreenEnabled = false;
-    int _ScreenWidth = 500;
-    int _ScreenHeight = 500;
+    int _ScreenWidth = 1000;
+    int _ScreenHeight = 1000;
 
 };
