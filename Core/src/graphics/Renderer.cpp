@@ -1,9 +1,14 @@
 #include "Renderer.h"
+#include "Shader.h"
 
 #include <string>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+
+#include "thirdparty/glad/glad.h"
+#include "thirdparty/GLFW/glfw3.h"
+#include "thirdparty/glm/glm.hpp"
 
 float vertices[] = {
 	//Positions				//Colors			//UVs
@@ -54,7 +59,8 @@ bool Renderer::Init() {
     glfwSwapInterval(1);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-	_shaderProgram.Load("Resources/Shaders/BasicVertex.glsl", "Resources/Shaders/BasicFragment.glsl");
+	_shaderProgram = std::make_shared<Shader>();
+	_shaderProgram->Load("Resources/Shaders/BasicVertex.glsl", "Resources/Shaders/BasicFragment.glsl");
 
 	
 	glGenVertexArrays(1, &_vao);
@@ -97,7 +103,7 @@ void Renderer::Tick(float deltaTime)
     //@TODO design tick order for engine
 		
 	//Rendering
-	_shaderProgram.Use();
+	_shaderProgram->Use();
 	glBindTexture(GL_TEXTURE_2D, _textureNiels);
 	glBindVertexArray(_vao);
 
@@ -138,8 +144,9 @@ bool Renderer::LoadResources()
 			glGenTextures(1, &_textureNiels);
 			glBindTexture(GL_TEXTURE_2D, _textureNiels);
 
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureData);
-			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 		else {
 			printf("Failure loading texture Niels\n");

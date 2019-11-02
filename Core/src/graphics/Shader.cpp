@@ -1,9 +1,10 @@
 #include "Shader.h"
 
+#include <glad/glad.h>
 #include <fstream>
 #include <sstream>
 
-void Shader::Load(const GLchar* vertexPath, const GLchar* fragmentPath) {
+void Shader::Load(const char* vertexPath, const char* fragmentPath) {
 	std::string vertexCode;
 	std::string fragmentCode;
 	std::ifstream vsFile;

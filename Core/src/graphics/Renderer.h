@@ -1,9 +1,6 @@
 #pragma once
-
-#include "thirdparty/glad/glad.h"
-#include "thirdparty/GLFW/glfw3.h"
-#include "thirdparty/glm/glm.hpp"
-#include "Shader.h"
+#define OPENGL //TODO: Should be done by CMAKE
+#include <memory>
 
 class Renderer
 {
@@ -20,16 +17,22 @@ public:
     bool ShutdownRequested();
 
 private:
-	static void GLFWErrorCallback(int error, const char* description);
-
-	static void GLFWFramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
 	bool LoadResources();
 
-	Shader _shaderProgram;
+	std::shared_ptr<class Shader> _shaderProgram;
+
+#ifdef OPENGL
+
+	static void GLFWErrorCallback(int error, const char* description);
+
+	static void GLFWFramebufferSizeCallback(struct GLFWwindow* window, int width, int height);
 	unsigned int _vao;
 	unsigned int _vbo;
 	unsigned int _ebo;
+
+#endif // OPENGL
+
 
 	unsigned int _textureNiels;
 
