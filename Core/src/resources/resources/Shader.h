@@ -7,6 +7,9 @@
 class Shader : public Resource {
 public:
     
+
+    Shader();
+
     void SetPath(const std::string& path);
 
 	//Program ID

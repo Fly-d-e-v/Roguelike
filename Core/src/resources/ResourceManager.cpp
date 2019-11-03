@@ -72,14 +72,15 @@ void ResourceManager::SaveResourceList() {
 
 void ResourceManager::LoadResource(std::shared_ptr<Resource> resource) {
     if (!resource->IsLoaded) {
-        std::string fileExtention = Utilities::GetFileExtention(resource->Path);
-        if (fileExtention == ".shader") {
+        switch (resource->GetType()) {
+        case EResourceType::Shader:
             ShaderLoader::LoadShader(std::static_pointer_cast<Shader>(resource));
-            return;
-        }
-        else if (fileExtention == ".jpg") {
+            break;
+        case EResourceType::Texture:
             TextureLoader::LoadTexture(std::static_pointer_cast<Texture>(resource));
-            return;
+            break;
+        case EResourceType::Audio:
+            break;
         }
     }
 }
