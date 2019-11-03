@@ -106,7 +106,8 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmod.dll $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodL.dll $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudio.dll $(OutDir)
-xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)</Command>
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)
+xcopy /s /y $(SolutionDir)Resources $(OutDir)Resources\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,7 +131,8 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmod.dll $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodL.dll $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudio.dll $(OutDir)
-xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)</Command>
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)
+xcopy /y /s $(SolutionDir)Resources $(OutDir)Resources\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -158,7 +160,8 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmod.dll $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodL.dll $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudio.dll $(OutDir)
-xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)</Command>
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)
+xcopy /s /y $(SolutionDir)Resources $(OutDir)Resources\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -186,7 +189,8 @@ xcopy /y /d $(SolutionDir)config\steam_appid.txt $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmod.dll $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodL.dll $(OutDir)
 xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudio.dll $(OutDir)
-xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)</Command>
+xcopy /y /d $(SolutionDir)lib\thirdparty\FMOD\$(Platform)\fmodstudioL.dll $(OutDir)
+xcopy /y /s $(SolutionDir)Resources $(OutDir)Resources\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

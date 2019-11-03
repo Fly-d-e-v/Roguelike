@@ -46,7 +46,7 @@ std::shared_ptr<Resource> ResourceManager::FetchResource(std::string path) {
 
 void ResourceManager::LoadResourceList() {
     try {
-        std::ifstream is = std::ifstream("Resources.xml");
+        std::ifstream is = std::ifstream("Resources/Resources.xml");
         {
             cereal::XMLInputArchive iarchive(is);
             iarchive(_Resources);
@@ -59,7 +59,7 @@ void ResourceManager::LoadResourceList() {
 
 void ResourceManager::SaveResourceList() {
     try {
-        std::ofstream os = std::ofstream("Resources.xml");
+        std::ofstream os = std::ofstream("Resources/Resources.xml");
         {
             cereal::XMLOutputArchive oarchive(os);
             oarchive(_Resources);

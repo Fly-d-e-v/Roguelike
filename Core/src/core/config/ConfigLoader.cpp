@@ -10,7 +10,7 @@
 
 void ConfigLoader::LoadConfig(Config& configptr) {
     try {
-        std::ifstream is = std::ifstream("Config.xml");
+        std::ifstream is = std::ifstream("Resources/Config.xml");
         {
             cereal::XMLInputArchive iarchive(is);
             iarchive(configptr);
@@ -23,7 +23,7 @@ void ConfigLoader::LoadConfig(Config& configptr) {
 
 void ConfigLoader::SaveConfig(Config& configptr) {
     try {
-        std::ofstream os = std::ofstream("Config.xml");
+        std::ofstream os = std::ofstream("Resources/Config.xml");
         {
             cereal::XMLOutputArchive oarchive(os);
             oarchive(configptr);
