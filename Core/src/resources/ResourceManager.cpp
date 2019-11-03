@@ -37,9 +37,12 @@ void ResourceManager::AddResource(std::shared_ptr<Resource> resource) {
 
 std::shared_ptr<Resource> ResourceManager::FetchResource(std::string path) {
 
-    auto resourcePair = _Resources.find(Utilities::ComputeStringHash(path));
+    std::map<long long, std::shared_ptr<Resource>>::iterator resourcePair = _Resources.find(Utilities::ComputeStringHash(path));
     if (resourcePair != _Resources.end()) {
         LoadResource(resourcePair->second);
+    }
+    else {
+        return  nullptr;
     }
     return resourcePair->second;
 }
