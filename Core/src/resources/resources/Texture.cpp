@@ -1,5 +1,7 @@
 #include "Texture.h"
 
+#include "imgui-1.73/imgui.h"
+
 #include <cereal/archives/xml.hpp>
 #include <cereal/types/polymorphic.hpp>
 
@@ -9,6 +11,13 @@ Texture::Texture() {
 
 void Texture::SetPath(const std::string& path) {
     Path = path;
+}
+
+void Texture::ImGuiDisplay() {
+    Resource::ImGuiDisplay();
+    if (IsLoaded) {
+        ImGui::Image((void*)(intptr_t)_textureID, ImVec2(256, 256));
+    }
 }
 
 CEREAL_REGISTER_TYPE(Texture);
