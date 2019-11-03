@@ -10,4 +10,5 @@ public:
 
     static std::string GetRootFolder();
     static std::string GetFileExtention(const std::string& path);
+    static std::string GetFileName(const std::string& path);
 };

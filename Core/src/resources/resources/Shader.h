@@ -10,6 +10,7 @@ public:
     Shader();
 
     void SetPath(const std::string& path);
+    virtual void ImGuiDisplay() override;
 
 	//Program ID
 	unsigned int ID = 0;

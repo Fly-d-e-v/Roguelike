@@ -60,9 +60,6 @@ bool Renderer::Init() {
         return false;
     }
 
-    _ImguiRenderEvent = std::make_shared<Event<>>();
-    _ImguiRenderEvent->Register(this, &Renderer::ImGuiDemo);
-
     Config& config = Engine::Instance()->GetConfig();
 
 	glfwSetErrorCallback(GLFWErrorCallback);
@@ -85,6 +82,10 @@ bool Renderer::Init() {
 	
 	//Load OpenGL
 	// Setup Dear ImGui context
+
+    _ImguiToolRenderEvent = std::make_shared<Event<>>();
+    _ImguiMenuItemEvent = std::make_shared<Event<>>();
+
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -188,6 +189,11 @@ void Renderer::Deinit()
     glfwTerminate();
 }
 
+void Renderer::RegisterTool(std::shared_ptr<class Tool> tool) {
+    _ImguiMenuItemEvent->Register(tool.get(), &Tool::MenuItemMethod);
+    _ImguiToolRenderEvent->Register(tool.get(), &Tool::ToolMethod);
+}
+
 void Renderer::GLFWErrorCallback(int error, const char* description)
 {
 	error;
@@ -218,8 +224,18 @@ void Renderer::TickImgui(float) {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    _ImguiRenderEvent->Dispatch();
-  
+    ImGui::BeginMainMenuBar();
+    if (ImGui::BeginMenu("Tools")) {
+
+        _ImguiMenuItemEvent->Dispatch();
+        ImGui::EndMenu();
+    }
+    ImGui::EndMainMenuBar();
+
+    _ImguiToolRenderEvent->Dispatch();
+
+    //ImGuiDemo();
+
     // Rendering
     ImGui::Render();
 }

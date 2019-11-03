@@ -23,6 +23,8 @@ public:
     virtual void SetPath(const std::string& path) = 0;
     EResourceType GetType() const;
 
+    virtual void ImGuiDisplay();
+
     long long GUID;
     std::string Path;
 

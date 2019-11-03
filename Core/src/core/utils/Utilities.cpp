@@ -23,3 +23,11 @@ std::string Utilities::GetFileExtention(const std::string& path) {
     }
     return "";
 }
+
+std::string Utilities::GetFileName(const std::string& path) {
+    size_t lastIndex = path.find_last_of('/');
+    if (lastIndex != std::string::npos) {
+        return path.substr(lastIndex, path.size());
+    }
+    return path;
+}

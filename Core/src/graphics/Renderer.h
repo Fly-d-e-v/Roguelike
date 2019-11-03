@@ -16,10 +16,7 @@ public:
     void Tick(float deltaTime);
     void Deinit();
 
-    template<typename ObjectInstance>
-    void RegisterImguiMethod(ObjectInstance* obj, void(ObjectInstance::* FunctionPtr)()) {
-        _ImguiRenderEvent->Register(obj, FunctionPtr);
-    }
+    void RegisterTool(std::shared_ptr<class Tool> tool);
 
     bool ShutdownRequested();
 
@@ -33,7 +30,8 @@ private:
 
 	std::shared_ptr<class Shader> _shaderProgram;
 
-    std::shared_ptr<class Event<>> _ImguiRenderEvent;
+    std::shared_ptr<class Event<>> _ImguiToolRenderEvent;
+    std::shared_ptr<class Event<>> _ImguiMenuItemEvent;
 
 #ifdef OPENGL
 

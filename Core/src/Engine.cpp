@@ -55,6 +55,8 @@ void Engine::Init()
     m_Renderer->Init();
     InputManager::Instance()->Init();
     AudioEngine::Instance()->Init();
+
+    m_Renderer->RegisterTool(ResourceManager::Instance());
 }
 
 void Engine::Tick(float deltaTime)

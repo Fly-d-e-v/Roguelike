@@ -1,13 +1,16 @@
 #pragma once
 
+#include "core/utils/Tool.h"
 #include "resources/Resource.h" 
 
 #include <map>
 #include <memory>
 
-class ResourceManager {
+class ResourceManager : public Tool {
 
 public:
+
+    ResourceManager();
 
     static std::shared_ptr<ResourceManager> Instance();
     void AddResource(std::shared_ptr<Resource> resource);
@@ -19,6 +22,8 @@ public:
 
     void LoadResourceList();
     void SaveResourceList();
+    
+    virtual void ToolMethod();
 
 private:
 

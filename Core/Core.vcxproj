@@ -194,6 +194,7 @@ xcopy /y /s $(SolutionDir)Resources $(OutDir)Resources\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\utils\Tool.cpp" />
     <ClCompile Include="src\resources\loaders\ShaderLoader.cpp" />
     <ClCompile Include="src\resources\loaders\TextureLoader.cpp" />
     <ClCompile Include="src\resources\ResourceManager.cpp" />
@@ -231,6 +232,7 @@ xcopy /y /s $(SolutionDir)Resources $(OutDir)Resources\</Command>
     <ClInclude Include="src\core\config\ConfigLoader.h" />
     <ClInclude Include="src\core\event\Event.h" />
     <ClInclude Include="src\core\serialization\SerializationHelpers.h" />
+    <ClInclude Include="src\core\utils\Tool.h" />
     <ClInclude Include="src\core\utils\Utilities.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\graphics\Renderer.h" />

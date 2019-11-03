@@ -8,6 +8,8 @@
 #include "resources/loaders/TextureLoader.h"
 #include "resources/resources/Texture.h"
 
+#include "imgui-1.73/imgui.h"
+
 #include <cereal/archives/xml.hpp>
 #include <cereal/types/memory.hpp>
 #include <cereal/types/map.hpp>
@@ -16,6 +18,10 @@
 #include <ostream>
 
 std::shared_ptr<ResourceManager> ResourceManager::s_Instance = nullptr;
+
+ResourceManager::ResourceManager() {
+    _ToolName = "Resource Manager";
+}
 
 std::shared_ptr<ResourceManager> ResourceManager::Instance() {
     if (s_Instance == nullptr) {
@@ -70,6 +76,23 @@ void ResourceManager::SaveResourceList() {
     }
     catch (std::exception e) {
         printf("Failed to Save Config File: %s\n", e.what());
+    }
+}
+
+void ResourceManager::ToolMethod() {
+    if (_ShowTool) {
+        ImGui::Begin("Resource Manager", &_ShowTool);
+
+        ImGui::Text("Resources");
+        ImGui::Separator();
+        for (auto resource : _Resources) {
+            if (ImGui::CollapsingHeader(Utilities::GetFileName(resource.second->Path).c_str())) {
+                resource.second->ImGuiDisplay();
+            }
+        }
+        ImGui::Separator();
+
+        ImGui::End();
     }
 }
 

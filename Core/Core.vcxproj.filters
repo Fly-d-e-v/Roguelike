@@ -189,6 +189,9 @@
     <ClCompile Include="src\resources\resources\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\utils\Tool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\platform\PlatformFriendInterface.h">
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="src\core\serialization\SerializationHelpers.h">
       <Filter>Header Files\core\serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\utils\Tool.h">
+      <Filter>Header Files\core\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
