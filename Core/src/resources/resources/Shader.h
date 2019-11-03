@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cereal/cereal.hpp>
-#include <cereal/types/polymorphic.hpp>
 
 #include "Resource.h"
 class Shader : public Resource {
@@ -26,7 +25,3 @@ public:
     }
 
 };
-
-#include <cereal/archives/xml.hpp>
-CEREAL_REGISTER_TYPE(Shader)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Resource, Shader)

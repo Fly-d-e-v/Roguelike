@@ -1,5 +1,8 @@
 #include "Shader.h"
 
+#include <cereal/types/polymorphic.hpp>
+#include <cereal/archives/xml.hpp>
+
 #include <glad/glad.h>
 
 Shader::Shader() {
@@ -14,3 +17,6 @@ void Shader::Use()
 {
 	glUseProgram(ID);
 }
+
+CEREAL_REGISTER_TYPE(Shader)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Resource, Shader)

@@ -34,3 +34,4 @@ protected:
     EResourceType _Type = EResourceType::None;
 
 };
+
