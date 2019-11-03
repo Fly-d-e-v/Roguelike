@@ -1,11 +1,11 @@
 #pragma once
 
-#include <cereal/cereal.hpp>
-
 #include "Resource.h"
+
 class Shader : public Resource {
 public:
     
+    SERIALIZE_CLASS_BODY_FOUR(GUID, Path, VertexPath, FragmentPath)
 
     Shader();
 
@@ -18,10 +18,5 @@ public:
     std::string FragmentPath;
 
 	void Use();
-
-    template<class Archive>
-    void serialize(Archive& ar) {
-        ar(GUID, Path, VertexPath, FragmentPath);
-    }
 
 };

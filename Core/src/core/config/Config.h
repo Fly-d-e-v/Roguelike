@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cereal/cereal.hpp>
+#include "core/serialization/SerializationHelpers.h"
 
 class Config {
 
@@ -8,14 +8,7 @@ public:
     
     Config();
 
-    template<class Archive>
-    void serialize(Archive& ar) {
-        ar(
-            CEREAL_NVP(_VSyncEnabled), 
-            CEREAL_NVP(_FullScreenEnabled),
-            CEREAL_NVP(_ScreenWidth),
-            CEREAL_NVP(_ScreenHeight));
-    }
+    SERIALIZE_CLASS_BODY_FOUR(_VSyncEnabled,_FullScreenEnabled, _ScreenWidth, _ScreenHeight)
 
     //GraphicsConfig
     bool _VSyncEnabled = false;

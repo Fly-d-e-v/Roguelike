@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cereal>
 	<value0>
-		<_VSyncEnabled>false</_VSyncEnabled>
-		<_FullScreenEnabled>false</_FullScreenEnabled>
-		<_ScreenWidth>1000</_ScreenWidth>
-		<_ScreenHeight>1000</_ScreenHeight>
+		<value0>false</value0>
+		<value1>false</value1>
+		<value2>1900</value2>
+		<value3>1000</value3>
 	</value0>
 </cereal>
 

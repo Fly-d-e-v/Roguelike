@@ -1,5 +1,7 @@
 #pragma once
 
+#include "core/serialization/SerializationHelpers.h"
+
 #include <string>
 #include <vector>
 
@@ -16,10 +18,7 @@ public:
 
     Resource();
 
-    template<class Archive>
-    void serialize(Archive& ar) {
-        ar(GUID, Path);
-    }
+    SERIALIZE_CLASS_BODY_TWO(GUID, Path)
 
     virtual void SetPath(const std::string& path) = 0;
     EResourceType GetType() const;

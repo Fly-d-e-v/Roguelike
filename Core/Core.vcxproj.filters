@@ -103,6 +103,9 @@
     <Filter Include="Source Files\resources\resources">
       <UniqueIdentifier>{a1728305-f7a1-46eb-a217-6f4f570f5a3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\core\serialization">
+      <UniqueIdentifier>{a68fef11-e21b-4054-a41c-b04bdd9df5fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp">
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="src\resources\resources\Resource.h">
       <Filter>Header Files\resources\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\serialization\SerializationHelpers.h">
+      <Filter>Header Files\core\serialization</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
