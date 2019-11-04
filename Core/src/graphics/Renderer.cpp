@@ -35,7 +35,7 @@ float _vertices[] = {
 	-0.5f, -0.5f, 0.0f,		1.0f, 1.0f, 1.0f,   0.0f, 0.0f,   // bottom left
 	-0.5f,  0.5f, 0.0f,		1.0f, 1.0f, 1.0f,   0.0f, 1.0f    // top left 
 };
-unsigned int _indices[] = {
+ uint8_t _indices[] = {
 	0, 1, 3,   // first triangle
 	1, 2, 3    // second triangle
 };
@@ -144,7 +144,7 @@ void Renderer::Tick(float deltaTime)
 		_didResize = false;
 	}
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
 
 	glUseProgram(0);
 
