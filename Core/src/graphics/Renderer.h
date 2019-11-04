@@ -28,8 +28,6 @@ private:
 
 	void InitImgui(void* window);
 
-    void ImGuiDemo();
-
 	std::shared_ptr<class Shader> _shaderProgram;
 
     std::shared_ptr<class Event<>> _ImguiToolRenderEvent;

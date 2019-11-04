@@ -56,9 +56,8 @@ Renderer::~Renderer()
 	
 bool Renderer::Init() {
 
-    if (!glfwInit()) {
+    if (!glfwInit()) 
         return false;
-    }
 
     Config& config = Engine::Instance()->GetConfig();
 
@@ -76,6 +75,7 @@ bool Renderer::Init() {
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		printf("Failed to initialize GLAD \n");
+		glfwTerminate();
 		return false;
 	}
 	
@@ -118,10 +118,6 @@ bool Renderer::Init() {
     return true;
 }
 
-bool show_demo_window = true;
-bool show_another_window = false;
-ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
 void Renderer::Tick(float deltaTime)
 {
 	GLFWwindow* window = glfwGetCurrentContext();
@@ -129,9 +125,6 @@ void Renderer::Tick(float deltaTime)
     TickImgui(deltaTime);
 
     glClear(GL_COLOR_BUFFER_BIT);
-
-    std::string title = "RogueLike - " + std::to_string(deltaTime * 1000.f) + "ms";
-    glfwSetWindowTitle(window, title.c_str());
 
 	//Rendering
 	_shaderProgram->Use();
@@ -167,6 +160,11 @@ void Renderer::Deinit()
 	glDeleteBuffers(1, &_vbo);
 	glDeleteBuffers(1, &_ebo);
 
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
+	glfwDestroyWindow(glfwGetCurrentContext());
     glfwTerminate();
 }
 
@@ -203,7 +201,7 @@ bool Renderer::LoadResources()
 	return true;
 }
 
-void Renderer::TickImgui(float) {
+void Renderer::TickImgui(float deltaTime) {
 
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
@@ -215,16 +213,19 @@ void Renderer::TickImgui(float) {
         _ImguiMenuItemEvent->Dispatch();
         ImGui::EndMenu();
     }
+	ImGui::AlignTextToFramePadding();
+	ImGui::SetCursorPosX(ImGui::GetColumnWidth() - 100);
+	ImGui::Text("FPS: %4.f", 1.f / deltaTime);
+	ImGui::Text("MS: %.3f ", deltaTime * 1000.f);
+		
     ImGui::EndMainMenuBar();
 
     _ImguiToolRenderEvent->Dispatch();
 
-    // Rendering
     ImGui::Render();
 
 	// Update and Render additional Platform Windows
-	ImGuiIO& io = ImGui::GetIO();
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{
 		GLFWwindow* backup_current_context = glfwGetCurrentContext();
 		ImGui::UpdatePlatformWindows();
@@ -241,11 +242,10 @@ void Renderer::InitImgui (void* window) {
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 
-	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
 
 	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
