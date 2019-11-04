@@ -64,7 +64,8 @@ bool Renderer::Init() {
 	glfwSetErrorCallback(GLFWErrorCallback);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    GLFWwindow* window = glfwCreateWindow(config._ScreenWidth, config._ScreenHeight, "RogueLike", NULL, NULL);
+	glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+    GLFWwindow* window = glfwCreateWindow(100, 100, "RogueLike", NULL, NULL);
 	if (!window) {
 		glfwTerminate();
 		return false;
@@ -137,9 +138,10 @@ void Renderer::Tick(float deltaTime)
 	glUniformMatrix4fv(_view_mat_uniform, 1, GL_FALSE, glm::value_ptr(_view_matrix));
 	
 	if (_didResize) {
-		Config& config = Engine::Instance()->GetConfig();
-		glViewport(0, 0, config._ScreenWidth, config._ScreenHeight);
-		_projection_matrix = glm::ortho(0.f, static_cast<float>(config._ScreenWidth), 0.f, static_cast<float>(config._ScreenHeight));
+		int width, height;
+		glfwGetWindowSize(window, &width, &height);
+		glViewport(0, 0, width, height);
+		_projection_matrix = glm::ortho(0.f, static_cast<float>(width), 0.f, static_cast<float>(height));
 		glUniformMatrix4fv(_proj_mat_uniform, 1, GL_FALSE, glm::value_ptr(_projection_matrix));
 		_didResize = false;
 	}
@@ -179,13 +181,8 @@ void Renderer::GLFWErrorCallback(int error, const char* description)
 	fprintf(stderr, "Error: %s\n", description);
 }
 
-void Renderer::GLFWFramebufferSizeCallback(GLFWwindow* window, int width, int height)
+void Renderer::GLFWFramebufferSizeCallback(GLFWwindow* , int , int )
 {
-	window;
-	Config& config = Engine::Instance()->GetConfig();
-	config._ScreenWidth = width;
-	config._ScreenHeight = height;
-	ConfigLoader::SaveConfig(config);
 	_didResize = true;
 }
 
@@ -194,8 +191,7 @@ bool Renderer::LoadResources()
     _NielsTexture = ResourceManager::Instance()->FetchResource<Texture>("Resources/Textures/Niels.jpg");
 
 	//TODO: REEEEEEEEEEEEE ECS
-	Config& config = Engine::Instance()->GetConfig();
-	_model_matrix = glm::translate(_model_matrix, glm::vec3(static_cast<float>(config._ScreenWidth) * 0.5f, static_cast<float>(config._ScreenHeight) * 0.5f, 0.f));
+	_model_matrix = glm::translate(_model_matrix, glm::vec3(350.f, 350.f, 0.f));
 	_model_matrix = glm::scale(_model_matrix, glm::vec3(150.f, 150.f, 1.f));
 
 	return true;
