@@ -1,6 +1,6 @@
 #include "Config.h"
 
-#include "imgui-1.73/imgui.h"
+#include "imgui/imgui.h"
 
 Config::Config() {
     _ToolName = "Config Tool";

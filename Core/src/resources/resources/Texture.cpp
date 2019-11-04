@@ -1,6 +1,6 @@
 #include "Texture.h"
 
-#include "imgui-1.73/imgui.h"
+#include "imgui/imgui.h"
 
 #include <cereal/archives/xml.hpp>
 #include <cereal/types/polymorphic.hpp>

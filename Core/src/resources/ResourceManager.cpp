@@ -8,7 +8,7 @@
 #include "resources/loaders/TextureLoader.h"
 #include "resources/resources/Texture.h"
 
-#include "imgui-1.73/imgui.h"
+#include "imgui/imgui.h"
 
 #include <cereal/archives/xml.hpp>
 #include <cereal/types/memory.hpp>

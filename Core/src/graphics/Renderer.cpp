@@ -7,6 +7,7 @@
 
 #include "Engine.h"
 #include "core/config/Config.h"
+#include "core/config/ConfigLoader.h"
 
 #include "resources/loaders/TextureLoader.h"
 #include "resources/resources/Texture.h"
@@ -16,9 +17,9 @@
 #include "thirdparty/glad/glad.h"
 #include "thirdparty/GLFW/glfw3.h"
 #include "thirdparty/glm/glm.hpp"
-#include "thirdparty/imgui-1.73/imgui.h"
-#include "thirdparty/imgui-1.73/imgui_impl_glfw.h"
-#include "thirdparty/imgui-1.73/imgui_impl_opengl3.h"
+#include "thirdparty/imgui/imgui.h"
+#include "thirdparty/imgui/imgui_impl_glfw.h"
+#include "thirdparty/imgui/imgui_impl_opengl3.h"
 
 #pragma warning(push, 0)        
 //Some includes with unfixable warnings
@@ -40,7 +41,6 @@ unsigned int _indices[] = {
 };
 
 //TODO: Hack fest, should be contain in the camera
-unsigned int _width = 640, _height = 360;
 glm::mat4 _projection_matrix = glm::mat4(1.0f);
 glm::mat4 _view_matrix = glm::mat4(1.0f);
 glm::mat4 _model_matrix = glm::mat4(1.0f);
@@ -63,7 +63,6 @@ bool Renderer::Init() {
     Config& config = Engine::Instance()->GetConfig();
 
 	glfwSetErrorCallback(GLFWErrorCallback);
-	const char* glsl_version = "#version 460";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     GLFWwindow* window = glfwCreateWindow(config._ScreenWidth, config._ScreenHeight, "RogueLike", NULL, NULL);
@@ -73,32 +72,14 @@ bool Renderer::Init() {
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, GLFWFramebufferSizeCallback);
-    glfwSwapInterval(0); //Turns off V-Sync
+    glfwSwapInterval(config._VSyncEnabled);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		printf("Failed to initialize GLAD \n");
 		return false;
 	}
 	
-	//Load OpenGL
-	// Setup Dear ImGui context
-
-    _ImguiToolRenderEvent = std::make_shared<Event<>>();
-    _ImguiMenuItemEvent = std::make_shared<Event<>>();
-
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-	// Setup Dear ImGui style
-	ImGui::StyleColorsDark();
-	//ImGui::StyleColorsClassic();
-
-	// Setup Platform/Renderer bindings
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init(glsl_version);
+	InitImgui(window);
 
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
@@ -144,7 +125,6 @@ ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 void Renderer::Tick(float deltaTime)
 {
 	GLFWwindow* window = glfwGetCurrentContext();
-	// Start the Dear ImGui frame
 	
     TickImgui(deltaTime);
 
@@ -164,8 +144,9 @@ void Renderer::Tick(float deltaTime)
 	glUniformMatrix4fv(_view_mat_uniform, 1, GL_FALSE, glm::value_ptr(_view_matrix));
 	
 	if (_didResize) {
-		glViewport(0, 0, _width, _height);
-		_projection_matrix = glm::ortho(0.f, static_cast<float>(_width), 0.f, static_cast<float>(_height));
+		Config& config = Engine::Instance()->GetConfig();
+		glViewport(0, 0, config._ScreenWidth, config._ScreenHeight);
+		_projection_matrix = glm::ortho(0.f, static_cast<float>(config._ScreenWidth), 0.f, static_cast<float>(config._ScreenHeight));
 		glUniformMatrix4fv(_proj_mat_uniform, 1, GL_FALSE, glm::value_ptr(_projection_matrix));
 		_didResize = false;
 	}
@@ -203,8 +184,10 @@ void Renderer::GLFWErrorCallback(int error, const char* description)
 void Renderer::GLFWFramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
 	window;
-	_width = width;
-	_height = height;
+	Config& config = Engine::Instance()->GetConfig();
+	config._ScreenWidth = width;
+	config._ScreenHeight = height;
+	ConfigLoader::SaveConfig(config);
 	_didResize = true;
 }
 
@@ -212,7 +195,9 @@ bool Renderer::LoadResources()
 {
     _NielsTexture = ResourceManager::Instance()->FetchResource<Texture>("Resources/Textures/Niels.jpg");
 
-	_model_matrix = glm::translate(_model_matrix, glm::vec3(static_cast<float>(_width) * 0.5f, static_cast<float>(_height) * 0.5f, 0.f));
+	//TODO: REEEEEEEEEEEEE ECS
+	Config& config = Engine::Instance()->GetConfig();
+	_model_matrix = glm::translate(_model_matrix, glm::vec3(static_cast<float>(config._ScreenWidth) * 0.5f, static_cast<float>(config._ScreenHeight) * 0.5f, 0.f));
 	_model_matrix = glm::scale(_model_matrix, glm::vec3(150.f, 150.f, 1.f));
 
 	return true;
@@ -234,49 +219,46 @@ void Renderer::TickImgui(float) {
 
     _ImguiToolRenderEvent->Dispatch();
 
-    //ImGuiDemo();
-
     // Rendering
     ImGui::Render();
+
+	// Update and Render additional Platform Windows
+	ImGuiIO& io = ImGui::GetIO();
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		GLFWwindow* backup_current_context = glfwGetCurrentContext();
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+		glfwMakeContextCurrent(backup_current_context);
+	}
+
 }
 
-void Renderer::ImGuiDemo() {
-    
-    // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-    if (show_demo_window)
-        ImGui::ShowDemoWindow(&show_demo_window);
+void Renderer::InitImgui (void* window) {
+	//Setup Dear ImGui context
+	_ImguiToolRenderEvent = std::make_shared<Event<>>();
+	_ImguiMenuItemEvent = std::make_shared<Event<>>();
 
-    // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-    {
-        static float f = 0.0f;
-        static int counter = 0;
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 
-        ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+	// Setup Dear ImGui style
+	ImGui::StyleColorsDark();
 
-        ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-        ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-        ImGui::Checkbox("Another Window", &show_another_window);
+	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+	ImGuiStyle& style = ImGui::GetStyle();
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		style.WindowRounding = 0.0f;
+		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+	}
 
-        ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-        ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-        if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-            counter++;
-        ImGui::SameLine();
-        ImGui::Text("counter = %d", counter);
-
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-        ImGui::End();
-    }
-
-    // 3. Show another simple window.
-    if (show_another_window) {
-        ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-        ImGui::Text("Hello from another window!");
-        if (ImGui::Button("Close Me"))
-            show_another_window = false;
-        ImGui::End();
-    }
+	// Setup Platform/Renderer bindings
+	ImGui_ImplGlfw_InitForOpenGL(reinterpret_cast<GLFWwindow*>(window), true);
+	ImGui_ImplOpenGL3_Init("#version 460");
 }
 
 bool Renderer::ShutdownRequested()

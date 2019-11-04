@@ -1,6 +1,6 @@
 #include "Tool.h"
 
-#include "imgui-1.73/imgui.h"
+#include "imgui/imgui.h"
 
 Tool::Tool() {
     _ToolName = "unnamed tool";

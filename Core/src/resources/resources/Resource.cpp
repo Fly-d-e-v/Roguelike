@@ -1,6 +1,6 @@
 #include "Resource.h"
 
-#include "imgui-1.73/imgui.h"
+#include "imgui/imgui.h"
 
 Resource::Resource() {
     IsLoaded = false;

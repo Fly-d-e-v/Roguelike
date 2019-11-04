@@ -26,6 +26,8 @@ private:
 
     void TickImgui(float deltaTime);
 
+	void InitImgui(void* window);
+
     void ImGuiDemo();
 
 	std::shared_ptr<class Shader> _shaderProgram;

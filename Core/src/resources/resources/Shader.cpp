@@ -1,6 +1,6 @@
 #include "Shader.h"
 
-#include "imgui-1.73/imgui.h"
+#include "imgui/imgui.h"
 
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/archives/xml.hpp>
