@@ -6,6 +6,7 @@
 #include "audio/AudioEngine.h"
 #include "core/utils/Utilities.h"
 #include "resources/ResourceManager.h"
+#include "ecs/EntityManager.h"
 
 #include "core/config/ConfigLoader.h"
 #include "core/config/Config.h"
@@ -39,6 +40,7 @@ Engine* Engine::Instance()
 Engine::Engine() : m_PastFrame()
 {
     m_Renderer = std::make_shared<Renderer>();
+	m_EntityManager = std::make_shared<EntityManager>();
 }
 
 void Engine::Init()
@@ -55,6 +57,7 @@ void Engine::Init()
     m_Renderer->Init();
     InputManager::Instance()->Init();
     AudioEngine::Instance()->Init();
+	m_EntityManager->Init();
 
     m_Renderer->RegisterTool(ResourceManager::Instance());
 }

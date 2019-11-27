@@ -119,6 +119,7 @@ xcopy /s /y $(SolutionDir)Resources $(OutDir)Resources\</Command>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ProjectDir)\src\;$(ProjectDir)\src\thirdparty\</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -195,6 +196,7 @@ xcopy /y /s $(SolutionDir)Resources $(OutDir)Resources\</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\core\utils\Tool.cpp" />
+    <ClCompile Include="src\ecs\EntityManager.cpp" />
     <ClCompile Include="src\resources\loaders\ShaderLoader.cpp" />
     <ClCompile Include="src\resources\loaders\TextureLoader.cpp" />
     <ClCompile Include="src\resources\ResourceManager.cpp" />
@@ -234,6 +236,10 @@ xcopy /y /s $(SolutionDir)Resources $(OutDir)Resources\</Command>
     <ClInclude Include="src\core\serialization\SerializationHelpers.h" />
     <ClInclude Include="src\core\utils\Tool.h" />
     <ClInclude Include="src\core\utils\Utilities.h" />
+    <ClInclude Include="src\ecs\Component.h" />
+    <ClInclude Include="src\ecs\ComponentChunk.h" />
+    <ClInclude Include="src\ecs\Entity.h" />
+    <ClInclude Include="src\ecs\EntityManager.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
     <ClInclude Include="src\input\devices\Controller.h" />

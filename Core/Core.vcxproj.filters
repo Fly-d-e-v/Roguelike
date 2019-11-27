@@ -100,6 +100,12 @@
     <Filter Include="Header Files\core\serialization">
       <UniqueIdentifier>{a68fef11-e21b-4054-a41c-b04bdd9df5fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ecs">
+      <UniqueIdentifier>{02fe1f35-94cf-41d3-ae06-83346afaeee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ecs">
+      <UniqueIdentifier>{7d956967-b012-4fe8-82dc-e2a8bfda0d55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp">
@@ -186,6 +192,9 @@
     <ClCompile Include="src\thirdparty\imgui\imgui_demo.cpp">
       <Filter>Source Files\thirdparty\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\ecs\EntityManager.cpp">
+      <Filter>Source Files\ecs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\platform\PlatformFriendInterface.h">
@@ -262,6 +271,18 @@
     </ClInclude>
     <ClInclude Include="src\core\utils\Tool.h">
       <Filter>Header Files\core\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\EntityManager.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\ComponentChunk.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\Component.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\Entity.h">
+      <Filter>Header Files\ecs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

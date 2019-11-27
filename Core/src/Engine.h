@@ -35,5 +35,5 @@ private:
     Config _Config;
 
     std::shared_ptr<class Renderer> m_Renderer;
-
+	std::shared_ptr<class EntityManager> m_EntityManager;
 };
