@@ -63,6 +63,40 @@ public:
 		return nullptr;
 	}
 
+	template<class T>
+	std::vector<T*> GetComponentByIndex(uint32_t& index)
+	{
+		std::vector<T*> componentList;
+
+		for (int i = 0; i < _chunks.size(); i++)
+		{
+			ComponentChunk<T>* chunk;
+
+			try {
+				chunk = std::any_cast<ComponentChunk<T>*>(_chunks[i]);
+			}
+			catch (const std::bad_any_cast) {
+				continue;
+			}
+
+			bool run;
+			uint32_t index = 0;
+			while (run)
+			{
+				T* component = chunk->GetComponent(index);
+				if (component)
+				{
+					componentList.push_back(component);
+					index++;
+				}					
+				else
+					run = false;
+			}				
+		}
+
+		return componentList;
+	}
+
 private:
 	// Just a vector for now
 	std::vector<Entity> _entities;

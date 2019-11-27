@@ -57,6 +57,19 @@ public:
 		return false;
 	}
 
+	T* GetComponent(uint32_t index)
+	{
+		if (_componentAmount == 0 || index >= _componentAmount)
+			return nullptr;
+
+		int32_t step = sizeof(T);
+
+		T* c = nullptr;
+		c = (T*)(_memory + (i * step));
+
+		return c;
+	}
+
 	template <class U>
 	bool IsType(U) {
 		return std::is_same<T, U>::value;
