@@ -21,10 +21,6 @@ Entity EntityManager::CreateEntity() {
 	return entity;
 }
 
-template<class T>
-void EntityManager::AddComponentChunk() {
-	_chunks.push_back(new ComponentChunk<T>());
-}
 
 Entity EntityManager::GetEntity(uint32_t id) {
 	for (auto& i : _entities)

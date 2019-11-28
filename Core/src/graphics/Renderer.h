@@ -28,10 +28,12 @@ private:
 
 	void InitImgui(void* window);
 
-	std::shared_ptr<class Shader> _shaderProgram;
+	std::shared_ptr<class EntityManager> _EntityManager = nullptr;
+	
+	std::shared_ptr<class Shader> _shaderProgram = nullptr;
 
-    std::shared_ptr<class Event<>> _ImguiToolRenderEvent;
-    std::shared_ptr<class Event<>> _ImguiMenuItemEvent;
+    std::shared_ptr<class Event<>> _ImguiToolRenderEvent = nullptr;
+    std::shared_ptr<class Event<>> _ImguiMenuItemEvent = nullptr;
 
 #ifdef OPENGL
 
