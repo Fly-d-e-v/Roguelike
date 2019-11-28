@@ -86,7 +86,7 @@ public:
 				continue;
 			}
 
-			auto run = true;
+			bool run = true;
 			uint32_t index = 0;
 			while (run)
 			{
