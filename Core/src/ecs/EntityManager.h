@@ -17,7 +17,11 @@ public:
 	Entity GetEntity(uint32_t id);
 
 	template<class T>
-	void AddComponentChunk();
+	ComponentChunk<T>* AddComponentChunk(){
+		auto new_chunk = new ComponentChunk<T>();
+		_chunks.push_back(new_chunk);
+		return new_chunk;
+	}
 
 	template<class T>
 	bool AddComponent(T component, Entity entity) {
@@ -37,7 +41,10 @@ public:
 			return true;
 		}
 
-		return false;
+		auto chunk = AddComponentChunk<T>();
+		chunk->AddComponent(component, entity.id);
+
+		return true;
 	}
 
 	template<class T>
@@ -64,11 +71,11 @@ public:
 	}
 
 	template<class T>
-	std::vector<T*> GetComponentByIndex(uint32_t& index)
+	std::vector<T*> GetComponents()
 	{
-		std::vector<T*> componentList;
+		std::vector<T*> component_list;
 
-		for (int i = 0; i < _chunks.size(); i++)
+		for (auto i = 0; i < _chunks.size(); i++)
 		{
 			ComponentChunk<T>* chunk;
 
@@ -79,14 +86,14 @@ public:
 				continue;
 			}
 
-			bool run;
+			auto run = true;
 			uint32_t index = 0;
 			while (run)
 			{
 				T* component = chunk->GetComponent(index);
 				if (component)
 				{
-					componentList.push_back(component);
+					component_list.push_back(component);
 					index++;
 				}					
 				else
@@ -94,7 +101,7 @@ public:
 			}				
 		}
 
-		return componentList;
+		return component_list;
 	}
 
 private:

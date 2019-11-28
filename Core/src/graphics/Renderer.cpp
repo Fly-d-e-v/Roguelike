@@ -8,6 +8,7 @@
 #include "Engine.h"
 #include "core/config/Config.h"
 #include "core/config/ConfigLoader.h"
+#include "ecs/EntityManager.h"
 
 #include "resources/loaders/TextureLoader.h"
 #include "resources/resources/Texture.h"
@@ -43,7 +44,6 @@ float _vertices[] = {
 //TODO: Hack fest, should be contain in the camera
 glm::mat4 _projection_matrix = glm::mat4(1.0f);
 glm::mat4 _view_matrix = glm::mat4(1.0f);
-glm::mat4 _model_matrix = glm::mat4(1.0f);
 
 
 Renderer::Renderer()
@@ -55,7 +55,8 @@ Renderer::~Renderer()
 }
 	
 bool Renderer::Init() {
-
+	_EntityManager = Engine::Instance()->GetEntityManager();
+	
     if (!glfwInit()) 
         return false;
 
@@ -65,7 +66,7 @@ bool Renderer::Init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
-    GLFWwindow* window = glfwCreateWindow(100, 100, "RogueLike", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(100, 100, "RogueLike", nullptr, nullptr);
 	if (!window) {
 		glfwTerminate();
 		return false;
@@ -74,7 +75,7 @@ bool Renderer::Init() {
 	glfwSetFramebufferSizeCallback(window, GLFWFramebufferSizeCallback);
     glfwSwapInterval(config._VSyncEnabled);
 
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+	if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
 		printf("Failed to initialize GLAD \n");
 		glfwTerminate();
 		return false;
@@ -129,14 +130,8 @@ void Renderer::Tick(float deltaTime)
 
 	//Rendering
 	_shaderProgram->Use();
-	glBindTexture(GL_TEXTURE_2D, _NielsTexture->_textureID);
 	glBindVertexArray(_vao);
 
-	//TODO: Should be handled by Entity, wake me up when we have an ECS
-	_model_matrix = glm::rotate(_model_matrix, glm::radians(45.f * deltaTime), glm::vec3(0, 0, 1));
-	glUniformMatrix4fv(_model_mat_uniform, 1, GL_FALSE, glm::value_ptr(_model_matrix));
-	glUniformMatrix4fv(_view_mat_uniform, 1, GL_FALSE, glm::value_ptr(_view_matrix));
-	
 	if (_didResize) {
 		int width, height;
 		glfwGetWindowSize(window, &width, &height);
@@ -145,9 +140,21 @@ void Renderer::Tick(float deltaTime)
 		glUniformMatrix4fv(_proj_mat_uniform, 1, GL_FALSE, glm::value_ptr(_projection_matrix));
 		_didResize = false;
 	}
+	glUniformMatrix4fv(_view_mat_uniform, 1, GL_FALSE, glm::value_ptr(_view_matrix));
+	
+	//TODO: Should be handled by Entity, wake me up when we have an ECS
+	auto render_components = _EntityManager->GetComponents<RenderComponent>();
+	for (auto render_component : render_components)
+	{
+		//TODO: This hurts me physically, move to game loop
+		render_component->model_matrix = glm::rotate(render_components[0]->model_matrix, glm::radians(45.f * deltaTime), glm::vec3(0, 0, 1));
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, 0);
+		glBindTexture(GL_TEXTURE_2D, render_component->texture->_textureID);
+		
+		glUniformMatrix4fv(_model_mat_uniform, 1, GL_FALSE, glm::value_ptr(render_components[0]->model_matrix));
 
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, nullptr);
+	}
 	glUseProgram(0);
 
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -186,14 +193,18 @@ void Renderer::GLFWFramebufferSizeCallback(GLFWwindow* , int , int )
 	_didResize = true;
 }
 
-bool Renderer::LoadResources()
-{
-    _NielsTexture = ResourceManager::Instance()->FetchResource<Texture>("Resources/Textures/Niels.jpg");
+bool Renderer::LoadResources() {
 
-	//TODO: REEEEEEEEEEEEE ECS
-	_model_matrix = glm::translate(_model_matrix, glm::vec3(350.f, 350.f, 0.f));
-	_model_matrix = glm::scale(_model_matrix, glm::vec3(150.f, 150.f, 1.f));
-
+	//TODO: REEEEEEEEEEEEE ~~ECS~~ Game Init()
+	
+	auto test_sprite_render_component = RenderComponent();
+	test_sprite_render_component.model_matrix = glm::translate(test_sprite_render_component.model_matrix, glm::vec3(350.f, 350.f, 0.f));
+	test_sprite_render_component.model_matrix = glm::scale(test_sprite_render_component.model_matrix, glm::vec3(150.f, 150.f, 1.f));
+	test_sprite_render_component.texture = ResourceManager::Instance()->FetchResource<Texture>("Resources/Textures/Niels.jpg");
+	
+	const auto test_sprite_entity = _EntityManager->CreateEntity();
+	_EntityManager->AddComponent<RenderComponent>(test_sprite_render_component, test_sprite_entity);
+	
 	return true;
 }
 

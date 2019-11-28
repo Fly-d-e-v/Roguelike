@@ -16,6 +16,8 @@ public:
 
     Config& GetConfig();
 
+	const std::shared_ptr<class EntityManager> GetEntityManager();
+
 private:
 
     Engine();

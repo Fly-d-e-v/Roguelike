@@ -84,3 +84,8 @@ bool Engine::ShouldShutdown()
 Config& Engine::GetConfig() {
     return _Config;
 }
+
+const std::shared_ptr<EntityManager> Engine::GetEntityManager()
+{
+	return m_EntityManager;
+}

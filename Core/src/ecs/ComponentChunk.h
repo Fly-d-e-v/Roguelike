@@ -22,7 +22,7 @@ public:
 	}
 
 	bool AddComponent(T component, uint32_t entityId) {
-		uint32_t newSize = _allocatedSize + sizeof(T);
+		const uint32_t newSize = _allocatedSize + sizeof(T);
 		if (newSize > _size)
 			return false;
 
@@ -40,13 +40,13 @@ public:
 		if (_componentAmount == 0)
 			return false;
 
-		uint32_t step = sizeof(T);
+		const uint32_t step = sizeof(T);
 
 		T* c = nullptr;
 
 		for (uint32_t i = 0; i < _componentAmount; i++)
 		{
-			c = (T*)(_memory + (i * step));
+			c = static_cast<T*>(_memory + (i * step));
 			if (c->entity == id)
 			{
 				*component = c;
@@ -57,15 +57,15 @@ public:
 		return false;
 	}
 
-	T* GetComponent(uint32_t index)
+	T* GetComponent(const uint32_t index)
 	{
 		if (_componentAmount == 0 || index >= _componentAmount)
 			return nullptr;
 
-		int32_t step = sizeof(T);
+		const uint32_t step = sizeof(T);
 
 		T* c = nullptr;
-		c = (T*)(_memory + (i * step));
+		c = reinterpret_cast<T*>(_memory + (index * step));
 
 		return c;
 	}
@@ -76,9 +76,9 @@ public:
 	}
 
 protected:
-	uint8_t* _memory;
+	uint8_t* _memory = nullptr;
 
-	uint16_t _size;
-	uint32_t _allocatedSize;
-	uint32_t _componentAmount;
+	uint16_t _size = 0;
+	uint32_t _allocatedSize = 0;
+	uint32_t _componentAmount = 0;
 };
