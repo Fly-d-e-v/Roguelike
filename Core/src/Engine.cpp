@@ -11,6 +11,8 @@
 #include "core/config/ConfigLoader.h"
 #include "core/config/Config.h"
 
+#include "core/logger/Logger.h"
+
 Engine* Engine::s_Instance = nullptr;
 
 void Engine::Main()
@@ -39,6 +41,8 @@ Engine* Engine::Instance()
 
 Engine::Engine() : m_PastFrame()
 {
+    Logger::WriteFirstLog();
+    Logger::Log(LogVerbosity::Info, "Creating Engine Instance...");
     m_Renderer = std::make_shared<Renderer>();
 	m_EntityManager = std::make_shared<EntityManager>();
 }
@@ -64,6 +68,8 @@ void Engine::Init()
 
 void Engine::Tick(float deltaTime)
 {
+    Logger::ProcessQueue();
+
     InputManager::Instance()->Tick(deltaTime);
     m_Renderer->Tick(deltaTime);
 }

@@ -94,6 +94,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\src\;$(ProjectDir)\src\thirdparty\</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +148,7 @@ xcopy /y /s $(SolutionDir)Resources $(OutDir)Resources\</Command>
       <AdditionalIncludeDirectories>$(ProjectDir)\src\;$(ProjectDir)\src\thirdparty\</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -176,6 +178,7 @@ xcopy /s /y $(SolutionDir)Resources $(OutDir)Resources\</Command>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ProjectDir)\src\;$(ProjectDir)\src\thirdparty\</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -195,6 +198,7 @@ xcopy /y /s $(SolutionDir)Resources $(OutDir)Resources\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\logger\Logger.cpp" />
     <ClCompile Include="src\core\utils\Tool.cpp" />
     <ClCompile Include="src\ecs\EntityManager.cpp" />
     <ClCompile Include="src\resources\loaders\ShaderLoader.cpp" />
@@ -233,6 +237,7 @@ xcopy /y /s $(SolutionDir)Resources $(OutDir)Resources\</Command>
     <ClInclude Include="src\core\config\Config.h" />
     <ClInclude Include="src\core\config\ConfigLoader.h" />
     <ClInclude Include="src\core\event\Event.h" />
+    <ClInclude Include="src\core\logger\Logger.h" />
     <ClInclude Include="src\core\serialization\SerializationHelpers.h" />
     <ClInclude Include="src\core\utils\Tool.h" />
     <ClInclude Include="src\core\utils\Utilities.h" />

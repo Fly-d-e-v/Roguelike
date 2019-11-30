@@ -26,7 +26,7 @@ public:
 	template<class T>
 	bool AddComponent(T component, Entity entity) {
 
-		for (int i = 0; i < _chunks.size(); i++)
+		for (uint32_t i = 0; i < _chunks.size(); i++)
 		{
 			ComponentChunk<T>* chunk;
 
@@ -75,7 +75,7 @@ public:
 	{
 		std::vector<T*> component_list;
 
-		for (auto i = 0; i < _chunks.size(); i++)
+		for (uint32_t i = 0; i < _chunks.size(); i++)
 		{
 			ComponentChunk<T>* chunk;
 

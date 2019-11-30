@@ -106,6 +106,12 @@
     <Filter Include="Header Files\ecs">
       <UniqueIdentifier>{7d956967-b012-4fe8-82dc-e2a8bfda0d55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\core\logger">
+      <UniqueIdentifier>{6a6a3754-901e-4366-9a98-fe5f5d3dbcbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\logger">
+      <UniqueIdentifier>{29f15c44-7681-40c1-8483-7b7189776833}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\platform\PlatformFriendInterface.cpp">
@@ -195,6 +201,9 @@
     <ClCompile Include="src\ecs\EntityManager.cpp">
       <Filter>Source Files\ecs</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\logger\Logger.cpp">
+      <Filter>Source Files\core\logger</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\platform\PlatformFriendInterface.h">
@@ -283,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="src\ecs\Entity.h">
       <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\logger\Logger.h">
+      <Filter>Header Files\core\logger</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

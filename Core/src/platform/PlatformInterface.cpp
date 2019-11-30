@@ -2,6 +2,8 @@
 
 #include "PlatformFriendInterface.h"
 
+#include "core/logger/Logger.h"
+
 #include "thirdparty/steam/steam_api.h"
 
 #include <iostream>
@@ -10,27 +12,18 @@ bool PlatformInterface::Init()
 {
     if (SteamAPI_Init())
     {
-        printf("\nSteam Init() succesfull\n");
+        Logger::Log(LogVerbosity::Info, "Steam Init() successful");
     }
     else
     {
-        printf("\nSteam Init() failed\n");
-
+        Logger::Log(LogVerbosity::Error, "Steam Init() Failed!");
         return false;
     }
 
     PlatformFriendInterface::Init();
 
     SteamAPI_RestartAppIfNecessary(SteamUtils()->GetAppID());
-
-    printf("Steam Name: %s\n", GetUserName());
-
-    auto friends = PlatformFriendInterface::GetOnlineFriendList();
-
-    for (auto friendData : friends)
-    {
-        printf("%s\n",friendData.UserName.c_str());
-    }
+    Logger::Log(LogVerbosity::Info, "Steam Username: %s", GetUserName());
 
     return true;
 }
