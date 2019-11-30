@@ -1,5 +1,7 @@
 #pragma once
 
+#include "core/utils/Tool.h"
+
 #include <string>
 #include <queue>
 #include <vector>
@@ -13,9 +15,12 @@ enum class LogVerbosity {
     Error
 };
 
-class Logger {
+class Logger : public Tool {
 
 public:
+
+    Logger();
+    ~Logger();
 
     static void WriteFirstLog();
 
@@ -27,13 +32,18 @@ public:
     //Clears log history
     static void ClearHistory();
 
+    virtual void ToolMethod() override;
+
 private:
 
     static std::queue <std::string> _logQueue;
     static std::vector<std::string> _logHistory;
 
     static std::mutex _queueLock;
+    static std::mutex _historyLock;
 
     static bool _logToFile;
+
+    char* _searchFilter;
 
 };

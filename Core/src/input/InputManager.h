@@ -13,6 +13,7 @@ public:
     InputManager();
 
     bool Init();
+    void InitInputCallBacks();
     void Tick(float deltaTime);
     void Deinit();
 

@@ -14,13 +14,7 @@ InputManager::InputManager() {
 }
 
 bool InputManager::Init() {
-
-    GLFWwindow* window = glfwGetCurrentContext();
-    
-    glfwSetKeyCallback(window, key_callback);
-    glfwSetCursorPosCallback(window, cursor_position_callback);
-    glfwSetMouseButtonCallback(window, mouse_button_callback);
-
+ 
     _Keyboard = std::make_shared<Keyboard>();
     _Keyboard->Init();
 
@@ -34,6 +28,13 @@ bool InputManager::Init() {
     _KeyEvents.find("OKAY")->second->Register(this, &InputManager::ButtonActionTestMethod);
 
     return true;
+}
+
+void InputManager::InitInputCallBacks() {
+    GLFWwindow* window = glfwGetCurrentContext();
+    glfwSetKeyCallback(window, key_callback);
+    glfwSetCursorPosCallback(window, cursor_position_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
 }
 
 void InputManager::Tick(float) {

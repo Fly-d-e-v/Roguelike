@@ -1,5 +1,7 @@
 #include "Logger.h"
 
+#include "imgui/imgui.h"
+
 #include <stdarg.h>
 #include <ios>
 #include <fstream>
@@ -8,7 +10,18 @@
 std::queue<std::string> Logger::_logQueue = std::queue<std::string>();
 std::vector<std::string> Logger::_logHistory = std::vector<std::string>();
 std::mutex Logger::_queueLock = std::mutex();
+std::mutex Logger::_historyLock = std::mutex();
 bool Logger::_logToFile = true;
+
+Logger::Logger() {
+    _ToolName = "Output Log";
+    _ShowTool = true;
+    _searchFilter = new char[128]();
+}
+
+Logger::~Logger() {
+    delete[] _searchFilter;
+}
 
 void Logger::WriteFirstLog() {
     try {
@@ -64,7 +77,7 @@ void Logger::Log(LogVerbosity verbosity, const char* log, ...) {
 
 void Logger::ProcessQueue() {
     
-    std::lock_guard<std::mutex> Lock(_queueLock);
+    std::lock_guard<std::mutex> QueueLock(_queueLock);
     if (_logToFile) {
         if (!_logQueue.empty()) {
 
@@ -87,6 +100,7 @@ void Logger::ProcessQueue() {
         }
     }
     else {
+        std::lock_guard<std::mutex> HistoryLock(_historyLock);
         while (!_logQueue.empty()) {
             _logHistory.push_back(_logQueue.front());
             _logQueue.pop();
@@ -95,5 +109,49 @@ void Logger::ProcessQueue() {
 }
 
 void Logger::ClearHistory() {
+    std::lock_guard<std::mutex> Lock(_historyLock);
     _logHistory.clear();
+}
+
+void Logger::ToolMethod() {
+
+    if (_ShowTool) {
+        ImGui::Begin(_ToolName.c_str(), &_ShowTool);
+
+        ImGui::InputText("Search",_searchFilter, sizeof(char)*128, ImGuiInputTextFlags_EnterReturnsTrue);
+
+        ImGui::Separator();
+        const float footer_height_to_reserve = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing(); // 1 separator, 1 input text
+        ImGui::BeginChild("ScrollingRegion", ImVec2(0, -footer_height_to_reserve), false, ImGuiWindowFlags_HorizontalScrollbar); // Leave room for 1 separator + 1 InputText
+        
+        //pls don't remove this scope
+        {
+            std::lock_guard<std::mutex> Lock(_historyLock);
+            for (uint32_t i = 0; i < Logger::_logHistory.size(); i++) {
+
+                const char* logItem = _logHistory[i].c_str();
+
+                if (!strstr(logItem, _searchFilter))
+                    continue;
+
+                bool pop_color = false;
+                if (strstr(logItem, "[Error]")) { ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.4f, 0.4f, 1.0f)); pop_color = true; }
+                else if (strstr(logItem, "[Warning]")) { ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.6f, 0.6f, 0.0f, 1.0f)); pop_color = true; }
+                ImGui::TextUnformatted(logItem);
+                if (pop_color)
+                    ImGui::PopStyleColor();
+            }
+        }
+
+        ImGui::EndChild();
+        ImGui::Separator();
+
+        if (ImGui::Button("Clear")) {
+            Logger::ClearHistory();
+        }
+
+
+
+        ImGui::End();
+    }
 }

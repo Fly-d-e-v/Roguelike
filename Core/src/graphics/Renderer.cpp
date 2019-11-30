@@ -10,6 +10,8 @@
 #include "core/config/ConfigLoader.h"
 #include "ecs/EntityManager.h"
 
+#include "input/InputManager.h"
+
 #include "resources/loaders/TextureLoader.h"
 #include "resources/resources/Texture.h"
 
@@ -80,6 +82,8 @@ bool Renderer::Init() {
 		glfwTerminate();
 		return false;
 	}
+
+    InputManager::Instance()->InitInputCallBacks();
 	
 	InitImgui(window);
 

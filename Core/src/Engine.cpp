@@ -43,6 +43,7 @@ Engine::Engine() : m_PastFrame()
 {
     Logger::WriteFirstLog();
     Logger::Log(LogVerbosity::Info, "Creating Engine Instance...");
+    m_Logger = std::make_shared<Logger>();
     m_Renderer = std::make_shared<Renderer>();
 	m_EntityManager = std::make_shared<EntityManager>();
 }
@@ -63,7 +64,12 @@ void Engine::Init()
     AudioEngine::Instance()->Init();
 	m_EntityManager->Init();
 
+    m_Renderer->RegisterTool(m_Logger);
     m_Renderer->RegisterTool(ResourceManager::Instance());
+
+    Logger::Log(LogVerbosity::Warning, "Sample Warning Log!");
+    Logger::Log(LogVerbosity::Error, "Sample Error Log!");
+
 }
 
 void Engine::Tick(float deltaTime)
