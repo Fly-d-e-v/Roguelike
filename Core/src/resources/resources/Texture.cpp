@@ -20,5 +20,19 @@ void Texture::ImGuiDisplay() {
     }
 }
 
+void Texture::ImGuiNewDisplay() {
+
+    char path[256] = "";
+    
+    for (uint8_t i = 0; i < Path.length(); i++) {
+        path[i] = Path[i];
+    }
+
+    ImGui::InputText("Path", path, IM_ARRAYSIZE(path));
+
+    Path = path;
+
+}
+
 CEREAL_REGISTER_TYPE(Texture);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Resource, Texture);

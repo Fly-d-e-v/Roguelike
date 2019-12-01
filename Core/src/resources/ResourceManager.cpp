@@ -8,6 +8,8 @@
 #include "resources/loaders/TextureLoader.h"
 #include "resources/resources/Texture.h"
 
+#include  "core/logger/Logger.h"
+
 #include "imgui/imgui.h"
 
 #include <cereal/archives/xml.hpp>
@@ -22,6 +24,8 @@ std::shared_ptr<ResourceManager> ResourceManager::s_Instance = nullptr;
 ResourceManager::ResourceManager() {
     _ToolName = "Resource Manager";
     _ShowTool = true;
+    _TempResource = nullptr;
+    _ShowNewResourceDialogue = false;
 }
 
 std::shared_ptr<ResourceManager> ResourceManager::Instance() {
@@ -38,7 +42,7 @@ void ResourceManager::AddResource(std::shared_ptr<Resource> resource) {
         _Resources.insert(std::make_pair(GUID, resource));
     }
     else {
-        printf("[RESOURCE MANAGER] - [%s] already exists in resource library", resource->Path.c_str());
+        Logger::Log(LogVerbosity::Warning, "[%s] already exists in resource library", resource->Path.c_str());
     }
 }
 
@@ -63,7 +67,7 @@ void ResourceManager::LoadResourceList() {
         }
     }
     catch (std::exception e) {
-        printf("Failed to LoadConfig File: %s\n", e.what());
+        Logger::Log(LogVerbosity::Error, "Failed to load Resource Dictionary: %s", e.what());
     }
 }
 
@@ -76,24 +80,46 @@ void ResourceManager::SaveResourceList() {
         }
     }
     catch (std::exception e) {
-        printf("Failed to Save Config File: %s\n", e.what());
+        Logger::Log(LogVerbosity::Error, "Failed to save Resource Dictionary:  %s", e.what());
     }
 }
 
 void ResourceManager::ToolMethod() {
     if (_ShowTool) {
-        ImGui::Begin("Resource Manager", &_ShowTool);
+        if (ImGui::Begin("Resource Manager", &_ShowTool, ImGuiWindowFlags_MenuBar)) {
 
-        ImGui::Text("Resources");
-        ImGui::Separator();
-        for (auto resource : _Resources) {
-            if (ImGui::CollapsingHeader(Utilities::GetFileName(resource.second->Path).c_str())) {
-                resource.second->ImGuiDisplay();
+            ImGui::BeginMenuBar();
+
+            if (ImGui::BeginMenu("File")) {
+
+                if (ImGui::MenuItem("New")) {
+                    ShowNewResourceDialogue();
+                }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Save")) {
+                    SaveResourceList();
+                }
+
+                ImGui::EndMenu();
             }
-        }
-        ImGui::Separator();
+            ImGui::EndMenuBar();
 
-        ImGui::End();
+            ImGui::Text("Resources");
+            ImGui::Separator();
+            for (auto resource : _Resources) {
+                if (ImGui::CollapsingHeader(Utilities::GetFileName(resource.second->Path).c_str())) {
+                    resource.second->ImGuiDisplay();
+                }
+            }
+            ImGui::Separator();
+
+            ImGui::End();
+
+            if (_ShowNewResourceDialogue) {
+                NewResourceDialogue();
+            }
+
+        }
     }
 }
 
@@ -109,5 +135,67 @@ void ResourceManager::LoadResource(std::shared_ptr<Resource> resource) {
         case EResourceType::Audio:
             break;
         }
+    }
+}
+
+void ResourceManager::NewResourceDialogue() {
+
+    const char* resourceTypes[] = { "None", "Texture", "Shader", "Sound" };
+
+    if (ImGui::Begin("New Resource",&_ShowNewResourceDialogue)) {
+
+        if (ImGui::BeginCombo("Type", _currentResourceType)) {
+
+            for (int n = 0; n < IM_ARRAYSIZE(resourceTypes); n++) {
+                bool is_selected = (_currentResourceType == resourceTypes[n]);
+                if (ImGui::Selectable(resourceTypes[n], is_selected)) {
+                    _currentResourceType = resourceTypes[n];
+                    CreateResourceOfType(_currentResourceType);
+                }
+                if (is_selected)
+                    ImGui::SetItemDefaultFocus();
+            }
+        
+            ImGui::EndCombo();
+        }
+
+        if (_TempResource) {
+
+            const float footer_height_to_reserve = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing(); // 1 separator, 1 input text
+            ImGui::BeginChild("ScrollingRegion", ImVec2(0, -footer_height_to_reserve), true, ImGuiWindowFlags_HorizontalScrollbar); // Leave room for 1 separator + 1 InputText
+
+            _TempResource->ImGuiNewDisplay();
+
+            ImGui::EndChild();
+
+            if (ImGui::Button("Add")) {
+                AddResource(_TempResource);
+                _currentResourceType = "None";
+                _TempResource = nullptr;
+                _ShowNewResourceDialogue = false;
+            }
+        }
+
+        ImGui::End();
+    }
+}
+
+void ResourceManager::ShowNewResourceDialogue() {
+    _ShowNewResourceDialogue = true;
+    _TempResource = nullptr;
+    _currentResourceType = "None";
+}
+
+void ResourceManager::CreateResourceOfType(const char* type) {
+    if (strstr(type, "None")) {
+        _TempResource = nullptr;
+    } else if (strstr(type, "Texture")) {
+        _TempResource = std::make_shared<Texture>();
+    }
+    else if (strstr(type,"Shader")) {
+        _TempResource = std::make_shared<Shader>();
+    }
+    else if (strstr(type, "Sound")) {
+        _TempResource = nullptr;
     }
 }

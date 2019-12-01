@@ -2,6 +2,8 @@
 
 #include "resources/resources/Shader.h"
 
+#include "core/logger/Logger.h"
+
 #include <glad/glad.h>
 #include <fstream>
 #include <sstream>
@@ -39,7 +41,7 @@ void ShaderLoader::LoadShader(std::shared_ptr<class Shader> shaderHandle) {
 
     }
     catch (std::ifstream::failure e) {
-        printf("Error: Shader file couldn't be loaded: %s", e.what());
+        Logger::Log(LogVerbosity::Error, "Shader file  could not be bloaded %s", e.what());
     }
 
     const char* vertexShaderSource = vertexCode.c_str();
@@ -56,8 +58,7 @@ void ShaderLoader::LoadShader(std::shared_ptr<class Shader> shaderHandle) {
     if (!success) {
         char infoLog[512];
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        fprintf(stderr, "Error: Vertex shader compilation failed %s\n", infoLog);
-
+        Logger::Log(LogVerbosity::Error, "Vertex Shader compilation failed:  %s", infoLog);
     }
 
     unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -69,7 +70,7 @@ void ShaderLoader::LoadShader(std::shared_ptr<class Shader> shaderHandle) {
     if (!success) {
         char infoLog[512];
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        fprintf(stderr, "Error: Fragment Shader compilation failed %s\n", infoLog);
+        Logger::Log(LogVerbosity::Error, "Fragment Shader compilation failed:  %s", infoLog);
     }
 
     //Linking Shaders
@@ -82,7 +83,7 @@ void ShaderLoader::LoadShader(std::shared_ptr<class Shader> shaderHandle) {
     if (!success) {
         char infoLog[512];
         glGetProgramInfoLog(shaderHandle->ID, 512, NULL, infoLog);
-        fprintf(stderr, "Error: Shader program linking failed %s\n", infoLog);
+        Logger::Log(LogVerbosity::Error, "Shader Linking failed:  %s", infoLog);
     }
 
     glDeleteShader(vertexShader);

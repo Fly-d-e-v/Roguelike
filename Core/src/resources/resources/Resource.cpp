@@ -15,3 +15,6 @@ void Resource::ImGuiDisplay() {
     ImGui::Text("Path: %s", Path.c_str());
     ImGui::Text("Loaded: %s", IsLoaded ? "true" : "false");
 }
+
+void Resource::ImGuiNewDisplay() {
+}

@@ -174,12 +174,6 @@
     <ClCompile Include="src\resources\resources\Resource.cpp">
       <Filter>Source Files\resources\resources</Filter>
     </ClCompile>
-    <ClCompile Include="src\resources\resources\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\utils\Tool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\thirdparty\imgui\imgui_draw.cpp">
       <Filter>Source Files\thirdparty\ImGui</Filter>
     </ClCompile>
@@ -203,6 +197,12 @@
     </ClCompile>
     <ClCompile Include="src\core\logger\Logger.cpp">
       <Filter>Source Files\core\logger</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\resources\Texture.cpp">
+      <Filter>Source Files\resources\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\utils\Tool.cpp">
+      <Filter>Source Files\core\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

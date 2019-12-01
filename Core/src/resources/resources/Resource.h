@@ -24,6 +24,7 @@ public:
     EResourceType GetType() const;
 
     virtual void ImGuiDisplay();
+    virtual void ImGuiNewDisplay();
 
     long long GUID;
     std::string Path;

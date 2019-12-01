@@ -31,10 +31,19 @@ private:
 
     void LoadResource(std::shared_ptr<Resource> resource);
 
+    void NewResourceDialogue();
+    void ShowNewResourceDialogue();
+    void CreateResourceOfType(const char* type);
+
 private:
 
     std::map<long long, std::shared_ptr<Resource>> _Resources;
 
     static std::shared_ptr<ResourceManager> s_Instance;
+
+    std::shared_ptr<Resource> _TempResource;
+
+    bool _ShowNewResourceDialogue;
+    const char* _currentResourceType;
 
 };

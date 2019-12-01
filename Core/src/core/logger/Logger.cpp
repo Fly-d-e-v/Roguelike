@@ -45,7 +45,7 @@ void Logger::Log(LogVerbosity verbosity, const char* log, ...) {
 
     va_list argList;
     va_start(argList, log);
-    char* buffer = new char[512];
+    char* buffer = new char[1024];
     vsprintf(buffer, log, argList);
     va_end(argList);
 

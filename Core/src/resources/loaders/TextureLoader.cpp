@@ -3,6 +3,8 @@
 #include "resources/resources/Texture.h"
 #include "core/utils/Utilities.h"
 
+#include "core/logger/Logger.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -26,10 +28,11 @@ std::shared_ptr<class Texture> TextureLoader::LoadTexture(const std::string& pat
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureData);
         }
         else {
-            printf("Failure loading texture Niels\n");
+            Logger::Log(LogVerbosity::Error, "Failed To Load Texture: %s", path.c_str());
             return nullptr;
         }
         stbi_image_free(textureData);
+        textureHandle->IsLoaded = true;
         return textureHandle;
     }
 }
@@ -48,7 +51,7 @@ void TextureLoader::LoadTexture(std::shared_ptr<Texture> textureHandle) {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureData);
         }
         else {
-            printf("Failure loading texture Niels\n");
+            Logger::Log(LogVerbosity::Error, "Failed To Load Texture: %s", textureHandle->Path.c_str());
         }
         stbi_image_free(textureData);
         textureHandle->IsLoaded = true;

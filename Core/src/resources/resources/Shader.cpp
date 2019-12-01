@@ -23,6 +23,27 @@ void Shader::ImGuiDisplay() {
 
 }
 
+void Shader::ImGuiNewDisplay() {
+
+    char vertex[256] = "";
+    char fragment[256] = "";
+
+    for (uint8_t i = 0; i < VertexPath.length(); i++) {
+        vertex[i] = VertexPath[i];
+    }
+
+    for (uint8_t i = 0; i < FragmentPath.length(); i++) {
+        fragment[i] = FragmentPath[i];
+    }
+
+    ImGui::InputText("Vertex Path",vertex,IM_ARRAYSIZE(vertex));
+    ImGui::InputText("Fragment Path",fragment, IM_ARRAYSIZE(fragment));
+
+    VertexPath = vertex;
+    FragmentPath = fragment;
+
+}
+
 void Shader::Use()
 {
 	glUseProgram(ID);

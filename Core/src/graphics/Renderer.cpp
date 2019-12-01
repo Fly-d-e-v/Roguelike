@@ -150,14 +150,16 @@ void Renderer::Tick(float deltaTime)
 	auto render_components = _EntityManager->GetComponents<RenderComponent>();
 	for (auto render_component : render_components)
 	{
-		//TODO: This hurts me physically, move to game loop
-		render_component->model_matrix = glm::rotate(render_components[0]->model_matrix, glm::radians(45.f * deltaTime), glm::vec3(0, 0, 1));
+        if (render_component->texture) {
+            //TODO: This hurts me physically, move to game loop
+            render_component->model_matrix = glm::rotate(render_components[0]->model_matrix, glm::radians(45.f * deltaTime), glm::vec3(0, 0, 1));
 
-		glBindTexture(GL_TEXTURE_2D, render_component->texture->_textureID);
-		
-		glUniformMatrix4fv(_model_mat_uniform, 1, GL_FALSE, glm::value_ptr(render_components[0]->model_matrix));
+            glBindTexture(GL_TEXTURE_2D, render_component->texture->_textureID);
 
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, nullptr);
+            glUniformMatrix4fv(_model_mat_uniform, 1, GL_FALSE, glm::value_ptr(render_components[0]->model_matrix));
+
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, nullptr);
+        }
 	}
 	glUseProgram(0);
 
