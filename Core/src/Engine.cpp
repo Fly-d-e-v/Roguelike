@@ -66,10 +66,6 @@ void Engine::Init()
 
     m_Renderer->RegisterTool(m_Logger);
     m_Renderer->RegisterTool(ResourceManager::Instance());
-
-    Logger::Log(LogVerbosity::Warning, "Sample Warning Log!");
-    Logger::Log(LogVerbosity::Error, "Sample Error Log!");
-
 }
 
 void Engine::Tick(float deltaTime)

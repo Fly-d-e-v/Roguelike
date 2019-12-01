@@ -21,6 +21,7 @@ std::shared_ptr<ResourceManager> ResourceManager::s_Instance = nullptr;
 
 ResourceManager::ResourceManager() {
     _ToolName = "Resource Manager";
+    _ShowTool = true;
 }
 
 std::shared_ptr<ResourceManager> ResourceManager::Instance() {
