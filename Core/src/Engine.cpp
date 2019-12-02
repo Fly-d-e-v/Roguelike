@@ -15,9 +15,9 @@
 #include "core/logger/Logger.h"
 
 #include "glm/glm.hpp"
-#include <glm/ext/matrix_transform.inl>
 
 Engine* Engine::s_Instance = nullptr;
+Camera Engine::_camera = Camera();
 
 void Engine::Main()
 {

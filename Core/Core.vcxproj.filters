@@ -296,6 +296,9 @@
     <ClInclude Include="src\core\logger\Logger.h">
       <Filter>Header Files\core\logger</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\Camera.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Resources\Shaders\BasicFragment.glsl">

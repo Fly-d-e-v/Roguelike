@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core/config/Config.h>
+#include "core/Camera.h"
 
 #include <memory>
 #include <chrono>
@@ -16,8 +17,12 @@ public:
 
     Config& GetConfig();
 
-	const std::shared_ptr<class EntityManager> GetEntityManager();
-
+	[[nodiscard]] const std::shared_ptr<class EntityManager> GetEntityManager();
+	[[nodiscard]] static Camera& GetCamera()
+	{
+		return _camera;
+	};
+	
 private:
 
     Engine();
@@ -31,6 +36,8 @@ private:
 private:
 
     static Engine* s_Instance;
+
+	static Camera _camera; 
 
     std::chrono::system_clock::time_point m_PastFrame;
 
