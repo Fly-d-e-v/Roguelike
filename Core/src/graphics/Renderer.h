@@ -22,8 +22,6 @@ public:
 
 private:
 
-	bool LoadResources();
-
     void TickImgui(float deltaTime);
 
 	void InitImgui(void* window);

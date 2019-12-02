@@ -48,13 +48,9 @@ glm::mat4 _projection_matrix = glm::mat4(1.0f);
 glm::mat4 _view_matrix = glm::mat4(1.0f);
 
 
-Renderer::Renderer()
-{
-}
+Renderer::Renderer() = default;
 
-Renderer::~Renderer()
-{
-}
+Renderer::~Renderer() = default;
 	
 bool Renderer::Init() {
 	_EntityManager = Engine::Instance()->GetEntityManager();
@@ -115,11 +111,6 @@ bool Renderer::Init() {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
-	
-	if (!LoadResources()) {
-		printf("Error loading resources\n");
-		return false;
-	}
 
     return true;
 }
@@ -146,14 +137,10 @@ void Renderer::Tick(float deltaTime)
 	}
 	glUniformMatrix4fv(_view_mat_uniform, 1, GL_FALSE, glm::value_ptr(_view_matrix));
 	
-	//TODO: Should be handled by Entity, wake me up when we have an ECS
 	auto render_components = _EntityManager->GetComponents<RenderComponent>();
 	for (auto render_component : render_components)
 	{
         if (render_component->texture) {
-            //TODO: This hurts me physically, move to game loop
-            render_component->model_matrix = glm::rotate(render_components[0]->model_matrix, glm::radians(45.f * deltaTime), glm::vec3(0, 0, 1));
-
             glBindTexture(GL_TEXTURE_2D, render_component->texture->_textureID);
 
             glUniformMatrix4fv(_model_mat_uniform, 1, GL_FALSE, glm::value_ptr(render_components[0]->model_matrix));
@@ -197,21 +184,6 @@ void Renderer::GLFWErrorCallback(int error, const char* description)
 void Renderer::GLFWFramebufferSizeCallback(GLFWwindow* , int , int )
 {
 	_didResize = true;
-}
-
-bool Renderer::LoadResources() {
-
-	//TODO: REEEEEEEEEEEEE ~~ECS~~ Game Init()
-	
-	auto test_sprite_render_component = RenderComponent();
-	test_sprite_render_component.model_matrix = glm::translate(test_sprite_render_component.model_matrix, glm::vec3(350.f, 350.f, 0.f));
-	test_sprite_render_component.model_matrix = glm::scale(test_sprite_render_component.model_matrix, glm::vec3(150.f, 150.f, 1.f));
-	test_sprite_render_component.texture = ResourceManager::Instance()->FetchResource<Texture>("Resources/Textures/Niels.jpg");
-	
-	const auto test_sprite_entity = _EntityManager->CreateEntity();
-	_EntityManager->AddComponent<RenderComponent>(test_sprite_render_component, test_sprite_entity);
-	
-	return true;
 }
 
 void Renderer::TickImgui(float deltaTime) {
