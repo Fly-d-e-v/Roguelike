@@ -6,9 +6,10 @@
 class Camera
 {
 public:
-	void UpdateProjection(const float width, const float height)
+	const glm::mat4& UpdateProjection(const float width, const float height)
 	{
 		_projectionMatrix = glm::ortho(0.f, width, 0.f, height);
+		return _projectionMatrix;
 	}
 
 	//Sets the position and updates the view matrix
