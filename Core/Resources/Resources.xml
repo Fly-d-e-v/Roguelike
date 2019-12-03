@@ -2,26 +2,39 @@
 <cereal>
 	<value0 size="dynamic">
 		<value0>
-			<key>492215960</key>
+			<key>442112421</key>
 			<value>
 				<polymorphic_id>2147483649</polymorphic_id>
 				<polymorphic_name>Texture</polymorphic_name>
 				<ptr_wrapper>
 					<id>2147483649</id>
 					<data>
-						<value0>492215960</value0>
-						<value1>Resources/Textures/Niels.jpg</value1>
+						<value0>442112421</value0>
+						<value1>Resources/Textures/0x72_DungeonTilesetII_v1.3.png</value1>
 					</data>
 				</ptr_wrapper>
 			</value>
 		</value0>
 		<value1>
+			<key>492215960</key>
+			<value>
+				<polymorphic_id>1</polymorphic_id>
+				<ptr_wrapper>
+					<id>2147483650</id>
+					<data>
+						<value0>492215960</value0>
+						<value1>Resources/Textures/Niels.jpg</value1>
+					</data>
+				</ptr_wrapper>
+			</value>
+		</value1>
+		<value2>
 			<key>942794829</key>
 			<value>
 				<polymorphic_id>2147483650</polymorphic_id>
 				<polymorphic_name>Shader</polymorphic_name>
 				<ptr_wrapper>
-					<id>2147483650</id>
+					<id>2147483651</id>
 					<data>
 						<value0>942794829</value0>
 						<value1>Resources/Shaders/BasicVertex.shader</value1>
@@ -30,7 +43,7 @@
 					</data>
 				</ptr_wrapper>
 			</value>
-		</value1>
+		</value2>
 	</value0>
 </cereal>
 

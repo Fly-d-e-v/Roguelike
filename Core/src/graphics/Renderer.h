@@ -41,15 +41,15 @@ private:
 	unsigned int _vao = 0u;
 	unsigned int _vbo = 0u;
 	unsigned int _ebo = 0u;
+	unsigned int _instanceVbo = 0u;
 
 	unsigned int _model_mat_uniform = 0u;
 	unsigned int _proj_mat_uniform	= 0u;
 	unsigned int _view_mat_uniform	= 0u;
-
+	unsigned int _sprite_map_size_uniform	= 0u;
+	unsigned int _map_size_uniform = 0u;
+	
 #endif // OPENGL
 
 	static bool _didResize;
-
-    std::shared_ptr<class Texture> _NielsTexture;
-
 };

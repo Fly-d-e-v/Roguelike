@@ -14,7 +14,10 @@
 
 #include "core/logger/Logger.h"
 
+#include "core/Camera.h"
+
 #include "glm/glm.hpp"
+#include <glm/ext/matrix_transform.hpp>
 
 Engine* Engine::s_Instance = nullptr;
 
@@ -40,6 +43,7 @@ Engine::Engine() : m_PastFrame()
     m_Logger = std::make_shared<Logger>();
     m_Renderer = std::make_shared<Renderer>();
 	m_EntityManager = std::make_shared<EntityManager>();
+	_camera = std::make_shared<Camera>();
 }
 
 void Engine::Init()
@@ -64,9 +68,9 @@ void Engine::Init()
 	//TODO: This probably isn't the correct place either, should be moved to the game instead of engine...
     {
 		auto test_sprite_render_component = RenderComponent();
-		test_sprite_render_component.model_matrix = glm::translate(test_sprite_render_component.model_matrix, glm::vec3(350.f, 350.f, 0.f));
-		test_sprite_render_component.model_matrix = glm::scale(test_sprite_render_component.model_matrix, glm::vec3(150.f, 150.f, 1.f));
-		test_sprite_render_component.texture = ResourceManager::Instance()->FetchResource<Texture>("Resources/Textures/Niels.jpg");
+		test_sprite_render_component.model_matrix = glm::translate(test_sprite_render_component.model_matrix, glm::vec3(750.f, 750.f, 0.f));
+		test_sprite_render_component.model_matrix = glm::scale(test_sprite_render_component.model_matrix, glm::vec3(96.f, 96.f, 1.f));
+		test_sprite_render_component.texture = ResourceManager::Instance()->FetchResource<Texture>("Resources/Textures/0x72_DungeonTilesetII_v1.3.png");
 
 		const auto test_sprite_entity = m_EntityManager->CreateEntity();
 		m_EntityManager->AddComponent<RenderComponent>(test_sprite_render_component, test_sprite_entity);
@@ -82,10 +86,10 @@ void Engine::Tick(float deltaTime)
 	/*TODO: Should probably be handled differently but I prefer to have it in update engine over the rendering loop for the time being
 	Should in one way or another be in the game loop... */
 	auto render_components = m_EntityManager->GetComponents<RenderComponent>();
-	for (auto render_component : render_components)
+	//for (auto render_component : render_components)
 	{
-		if (render_component->texture) 
-			render_component->model_matrix = glm::rotate(render_components[0]->model_matrix, glm::radians(45.f * deltaTime), glm::vec3(0, 0, 1));
+		//if (render_component->texture) 
+			//render_component->model_matrix = glm::rotate(render_components[0]->model_matrix, glm::radians(45.f * deltaTime), glm::vec3(0, 0, 1));
 	}
     m_Renderer->Tick(deltaTime);
 }

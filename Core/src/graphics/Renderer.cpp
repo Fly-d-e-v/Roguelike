@@ -8,6 +8,7 @@
 #include "Engine.h"
 #include "core/config/Config.h"
 #include "core/config/ConfigLoader.h"
+#include "core/Camera.h"
 #include "ecs/EntityManager.h"
 
 #include "input/InputManager.h"
@@ -41,6 +42,16 @@ const float _vertices[] = {
 const uint8_t _indices[] = {
 	0, 1, 3,   // first triangle
 	1, 2, 3    // second triangle
+};
+
+const float _tiles[] = {
+	98, 37, 37, 99, 37, 37, 66, 37, 37, 67, 37, 37, 165,
+	44, 69, 70, 130, 71, 69, 165, 71, 71, 130, 71, 195,
+	197, 132, 130, 194, 131, 130, 194, 197, 194, 355, 130,
+	195, 131, 132, 131, 130, 164, 130, 131, 164, 130, 194,
+	356, 130, 130,	196, 199, 450, 451, 452, 453, 454, 455,
+	358, 130, 357, 194, 132, 196, 231, 482, 483, 484, 485,
+	486, 487, 34, 34, 34, 34, 34, 34, 34
 };
 
 Renderer::Renderer() = default;
@@ -86,11 +97,14 @@ bool Renderer::Init() {
 	_model_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "model");
 	_view_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "view");
 	_proj_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "projection");
+	_sprite_map_size_uniform = glGetUniformLocation(_shaderProgram->ID, "spriteSheetSize");
+	_map_size_uniform = glGetUniformLocation(_shaderProgram->ID, "mapSize");
 
 	
 	glGenVertexArrays(1, &_vao);
 	glGenBuffers(1, &_vbo);
 	glGenBuffers(1, &_ebo);
+	glGenBuffers(1, &_instanceVbo);
 
 	glBindVertexArray(_vao);
 	
@@ -107,6 +121,13 @@ bool Renderer::Init() {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+
+	glEnableVertexAttribArray(3);
+	glBindBuffer(GL_ARRAY_BUFFER, _instanceVbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(_tiles), &_tiles, GL_STATIC_DRAW);
+	glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(float), reinterpret_cast<void*>(0));
+	
+	glVertexAttribDivisor(3, 1);
 
     return true;
 }
@@ -126,11 +147,12 @@ void Renderer::Tick(float deltaTime)
 		int width, height;
 		glfwGetWindowSize(window, &width, &height);
 		glViewport(0, 0, width, height);
-		glUniformMatrix4fv(_proj_mat_uniform, 1, GL_FALSE, glm::value_ptr(Engine::Instance()->GetCamera().UpdateProjection(static_cast<float>(width), static_cast<float>(height))));
+		glUniformMatrix4fv(_proj_mat_uniform, 1, GL_FALSE, glm::value_ptr(Engine::Instance()->GetCamera()->UpdateProjection(static_cast<float>(width), static_cast<float>(height))));
 		_didResize = false;
 	}
-	glUniformMatrix4fv(_view_mat_uniform, 1, GL_FALSE, glm::value_ptr(Engine::Instance()->GetCamera().GetViewMat()));
-	
+	glUniformMatrix4fv(_view_mat_uniform, 1, GL_FALSE, glm::value_ptr(Engine::Instance()->GetCamera()->GetViewMat()));
+	glUniform1ui(_sprite_map_size_uniform, 32);
+
 	auto render_components = _EntityManager->GetComponents<RenderComponent>();
 	for (auto render_component : render_components)
 	{
@@ -138,8 +160,9 @@ void Renderer::Tick(float deltaTime)
             glBindTexture(GL_TEXTURE_2D, render_component->texture->_textureID);
 
             glUniformMatrix4fv(_model_mat_uniform, 1, GL_FALSE, glm::value_ptr(render_components[0]->model_matrix));
-
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, nullptr);
+        	glUniform2ui(_map_size_uniform, 13, 6);
+		
+			glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, nullptr, 78);
         }
 	}
 	glUseProgram(0);
