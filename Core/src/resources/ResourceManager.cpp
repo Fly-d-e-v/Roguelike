@@ -113,12 +113,10 @@ void ResourceManager::ToolMethod() {
             }
             ImGui::Separator();
 
-            ImGui::End();
-
-            if (_ShowNewResourceDialogue) {
-                NewResourceDialogue();
-            }
-
+        }
+        ImGui::End();
+        if (_ShowNewResourceDialogue) {
+            NewResourceDialogue();
         }
     }
 }
@@ -175,9 +173,8 @@ void ResourceManager::NewResourceDialogue() {
                 _ShowNewResourceDialogue = false;
             }
         }
-
-        ImGui::End();
     }
+    ImGui::End();
 }
 
 void ResourceManager::ShowNewResourceDialogue() {
