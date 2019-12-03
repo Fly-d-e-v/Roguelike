@@ -43,8 +43,8 @@ private:
 	unsigned int _ebo = 0u;
 
 	unsigned int _model_mat_uniform = 0u;
-	static unsigned int _proj_mat_uniform;
-	unsigned int _view_mat_uniform = 0u;
+	unsigned int _proj_mat_uniform	= 0u;
+	unsigned int _view_mat_uniform	= 0u;
 
 #endif // OPENGL
 

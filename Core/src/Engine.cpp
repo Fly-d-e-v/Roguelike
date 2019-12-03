@@ -17,7 +17,6 @@
 #include "glm/glm.hpp"
 
 Engine* Engine::s_Instance = nullptr;
-Camera Engine::_camera = Camera();
 
 void Engine::Main()
 {
@@ -32,15 +31,6 @@ void Engine::Main()
     }
 
     Deinit();
-}
-
-Engine* Engine::Instance()
-{
-    if (s_Instance == nullptr)
-    {
-        s_Instance = new Engine();
-    }
-    return s_Instance;
 }
 
 Engine::Engine() : m_PastFrame()
@@ -115,9 +105,4 @@ bool Engine::ShouldShutdown()
 
 Config& Engine::GetConfig() {
     return _Config;
-}
-
-const std::shared_ptr<EntityManager> Engine::GetEntityManager()
-{
-	return m_EntityManager;
 }

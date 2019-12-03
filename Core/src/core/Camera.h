@@ -25,22 +25,22 @@ public:
 		UpdateViewMat();
 	}
 
-	[[nodiscard]] /*const*/ glm::mat4/*&*/ GetProjMat() const
+	[[nodiscard]] const glm::mat4& GetProjMat() const
 	{
 		return _projectionMatrix;
 	}
 	
-	[[nodiscard]] /*const*/ glm::mat4/*&*/ GetViewMat() const
+	[[nodiscard]] const glm::mat4& GetViewMat() const
 	{
 		return _viewMatrix;
 	}
 	
-	[[nodiscard]] /*const*/ glm::vec2/*&*/ GetPosition() const {
+	[[nodiscard]] const glm::vec2& GetPosition() const {
 		return _position;
 	}
 
 	//Returns clockwise camera rotation in radians
-	[[nodiscard]] /*const*/ float/*&*/ GetRotation() const
+	[[nodiscard]] const float& GetRotation() const
 	{
 		return _rotation;
 	}

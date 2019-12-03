@@ -30,7 +30,6 @@
 #pragma warning(pop)
 
 bool Renderer::_didResize = true;
-unsigned int Renderer::_proj_mat_uniform = 0u;
 
 const float _vertices[] = {
 	//Positions				//Colors			//UVs
@@ -43,11 +42,6 @@ const uint8_t _indices[] = {
 	0, 1, 3,   // first triangle
 	1, 2, 3    // second triangle
 };
-
-//TODO: Hack fest, should be contain in the camera
-//glm::mat4 _projection_matrix = glm::mat4(1.0f);
-//glm::mat4 _view_matrix = glm::mat4(1.0f);
-
 
 Renderer::Renderer() = default;
 
@@ -65,7 +59,7 @@ bool Renderer::Init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
-    GLFWwindow* window = glfwCreateWindow(100, 100, "RogueLike", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(1280, 720, "RogueLike", nullptr, nullptr);
 	if (!window) {
 		glfwTerminate();
 		return false;
@@ -93,11 +87,6 @@ bool Renderer::Init() {
 	_view_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "view");
 	_proj_mat_uniform = glGetUniformLocation(_shaderProgram->ID, "projection");
 
-	{
-		int x, y;
-		glfwGetWindowSize(window, &x, &y);
-		GLFWFramebufferSizeCallback(window, x, y);
-	}
 	
 	glGenVertexArrays(1, &_vao);
 	glGenBuffers(1, &_vbo);
@@ -133,9 +122,14 @@ void Renderer::Tick(float deltaTime)
 	//Rendering
 	_shaderProgram->Use();
 	glBindVertexArray(_vao);
-
-	auto viewMat = Engine::GetCamera().GetViewMat();
-	glUniformMatrix4fv(_view_mat_uniform, 1, GL_FALSE, glm::value_ptr(viewMat));
+	if (_didResize) {
+		int width, height;
+		glfwGetWindowSize(window, &width, &height);
+		glViewport(0, 0, width, height);
+		glUniformMatrix4fv(_proj_mat_uniform, 1, GL_FALSE, glm::value_ptr(Engine::Instance()->GetCamera().UpdateProjection(static_cast<float>(width), static_cast<float>(height))));
+		_didResize = false;
+	}
+	glUniformMatrix4fv(_view_mat_uniform, 1, GL_FALSE, glm::value_ptr(Engine::Instance()->GetCamera().GetViewMat()));
 	
 	auto render_components = _EntityManager->GetComponents<RenderComponent>();
 	for (auto render_component : render_components)
@@ -180,12 +174,9 @@ void Renderer::GLFWErrorCallback(int, const char* description)
 	fprintf(stderr, "Error: %s\n", description);
 }
 
-void Renderer::GLFWFramebufferSizeCallback(GLFWwindow* , int width, int height)
+void Renderer::GLFWFramebufferSizeCallback(GLFWwindow* , int , int )
 {
-	glViewport(0, 0, width, height);
-	Engine::GetCamera().UpdateProjection(static_cast<float>(width), static_cast<float>(height));
-	auto test = Engine::GetCamera().GetProjMat();
-	glUniformMatrix4fv(_proj_mat_uniform, 1, GL_FALSE, glm::value_ptr(test));
+	_didResize = true;
 }
 
 void Renderer::TickImgui(float deltaTime) {

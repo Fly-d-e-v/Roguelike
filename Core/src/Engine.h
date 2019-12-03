@@ -13,12 +13,23 @@ public:
 
     void Main();
 
-    static Engine* Instance();
+    [[nodiscard]] static Engine* Instance()
+	{
+		if (s_Instance == nullptr)
+		{
+			s_Instance = new Engine();
+		}
+		return s_Instance;
+	}
 
     Config& GetConfig();
 
-	[[nodiscard]] const std::shared_ptr<class EntityManager> GetEntityManager();
-	[[nodiscard]] static Camera& GetCamera()
+	[[nodiscard]] const std::shared_ptr<class EntityManager> GetEntityManager() const
+	{
+		return m_EntityManager;
+	};
+	
+	[[nodiscard]] Camera& GetCamera()
 	{
 		return _camera;
 	};
@@ -37,7 +48,7 @@ private:
 
     static Engine* s_Instance;
 
-	static Camera _camera; 
+	Camera _camera; 
 
     std::chrono::system_clock::time_point m_PastFrame;
 
