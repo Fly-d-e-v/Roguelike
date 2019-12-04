@@ -12,12 +12,27 @@ public:
 
     void Main();
 
-    static Engine* Instance();
+    [[nodiscard]] static Engine* Instance()
+	{
+		if (s_Instance == nullptr)
+		{
+			s_Instance = new Engine();
+		}
+		return s_Instance;
+	}
 
     Config& GetConfig();
 
-	const std::shared_ptr<class EntityManager> GetEntityManager();
-
+	[[nodiscard]] const std::shared_ptr<class EntityManager> GetEntityManager() const
+	{
+		return m_EntityManager;
+	};
+	
+	[[nodiscard]] const std::shared_ptr <class Camera> GetCamera() const
+	{
+		return _camera;
+	};
+	
 private:
 
     Engine();
@@ -39,4 +54,5 @@ private:
     std::shared_ptr<class Logger> m_Logger;
     std::shared_ptr<class Renderer> m_Renderer;
 	std::shared_ptr<class EntityManager> m_EntityManager;
+	std::shared_ptr<class Camera> _camera;
 };

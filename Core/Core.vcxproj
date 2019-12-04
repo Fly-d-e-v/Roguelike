@@ -234,6 +234,7 @@ xcopy /y /s $(SolutionDir)Resources $(OutDir)Resources\</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\audio\AudioEngine.h" />
+    <ClInclude Include="src\core\Camera.h" />
     <ClInclude Include="src\core\config\Config.h" />
     <ClInclude Include="src\core\config\ConfigLoader.h" />
     <ClInclude Include="src\core\event\Event.h" />
