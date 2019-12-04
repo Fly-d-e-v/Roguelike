@@ -194,7 +194,7 @@ void Renderer::RegisterTool(std::shared_ptr<class Tool> tool) {
 
 void Renderer::GLFWErrorCallback(int, const char* description)
 {
-	fprintf(stderr, "Error: %s\n", description);
+	Logger::Log(LogVerbosity::Error, description);
 }
 
 void Renderer::GLFWFramebufferSizeCallback(GLFWwindow* , int , int )
