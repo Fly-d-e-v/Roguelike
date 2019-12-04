@@ -44,7 +44,7 @@ const uint8_t _indices[] = {
 	1, 2, 3    // second triangle
 };
 
-const float _tiles[] = {
+const uint16_t _tiles[] = {
 	98, 37, 37, 99, 37, 37, 66, 37, 37, 67, 37, 37, 165,
 	44, 69, 70, 130, 71, 69, 165, 71, 71, 130, 71, 195,
 	197, 132, 130, 194, 131, 130, 194, 197, 194, 355, 130,
@@ -125,7 +125,7 @@ bool Renderer::Init() {
 	glEnableVertexAttribArray(3);
 	glBindBuffer(GL_ARRAY_BUFFER, _instanceVbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(_tiles), &_tiles, GL_STATIC_DRAW);
-	glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(float), reinterpret_cast<void*>(0));
+	glVertexAttribIPointer(3, 1, GL_UNSIGNED_SHORT, sizeof(uint16_t), reinterpret_cast<void*>(0));
 	
 	glVertexAttribDivisor(3, 1);
 
